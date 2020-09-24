@@ -1,0 +1,15 @@
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\bin\Debug\SAUEP.exe.config
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\bin\Debug\SAUEP.exe
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\bin\Debug\SAUEP.pdb
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.csprojAssemblyReference.cache
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\View\MainWindow.g.cs
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\App.g.cs
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP_MarkupCompile.cache
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP_MarkupCompile.lref
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\View\MainWindow.baml
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.g.resources
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.Properties.Resources.resources
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.csproj.GenerateResource.cache
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.csproj.CoreCompileInputs.cache
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.exe
+C:\Users\Vinniko\source\repos\SAUEP\SAUEP\obj\Debug\SAUEP.pdb
