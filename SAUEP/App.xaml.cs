@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
+using Autofac.Core;
+using SAUEP.Configs;
+using Core.Services;
 
 namespace SAUEP
 {
@@ -13,5 +17,14 @@ namespace SAUEP
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            IContainer container = AutofacConfig.ConfigureContainer();
+            //var scenarioReader = new ScenarioReader(container.Resolve<Guardian>());
+            //scenarioReader.Read("f");
+
+            //var orfografferView = new OrfografferView(container.Resolve<BaseVM>() as OrfografferViewModel);
+            //orfografferView.Show();
+        }
     }
 }
