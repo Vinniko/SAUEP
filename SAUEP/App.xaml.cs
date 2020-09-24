@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using Autofac;
 using Autofac.Core;
-using SAUEP.Configs;
 using Core.Services;
 
 namespace SAUEP
