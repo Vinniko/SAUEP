@@ -29,7 +29,7 @@ namespace Core.Services
 
         #region Fields
 
-        private string _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Logggering");
+        private string _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
         private string _loggFile = "\\log.txt";
 
         #endregion
