@@ -19,6 +19,25 @@ namespace Core.Services
 
         #region Main Logic
 
+        public Result Secure(Action action)
+        {
+            Result result = null;
+
+            try
+            {
+                action();
+
+                result = Result.Successful();
+            }
+            catch (Exception exception)
+            {
+                string logText = exception.Message;
+                _logger.Logg(logText);
+                result = Result.Failed(exception);
+            }
+
+            return result;
+        }
         public Result<T> Secure<T>(Func<T> func)
         {
             Result<T> result = null;
