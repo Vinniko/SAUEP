@@ -2,14 +2,32 @@
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using Autofac;
+using SAUEP.TCPServer.Configs;
+using SAUEP.TCPServer.Services;
+using SAUEP.TCPServer.Interfaces;
 
 namespace SAUEP.TCPServer
 {
-    class Program
+    public class Program
     {
-        static int port = 8005; // порт для приема входящих запросов
-        static void Main(string[] args)
+        public static void test()
         {
+            int count = 0;
+            throw new Exception();
+        }
+        static int port = 8005; // порт для приема входящих запросов
+        public static void Main(string[] args)
+        {
+            IContainer container = AutofacConfig.ConfigureContainer();
+            using (var scope = container.BeginLifetimeScope())
+            {
+                var guardian = scope.Resolve<Guardian>();
+                var k = scope.Resolve<ILogger>();
+                guardian.Secure(() => test());
+            }
+
+            
             // получаем адреса для запуска сокета
             IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
 
