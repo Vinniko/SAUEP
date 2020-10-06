@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using Core.Interfaces;
 using Core.Services;
 
-namespace Core.Services
+namespace SAUEP.WPF.Configs
 {
     public sealed class AutofacConfig
     {
