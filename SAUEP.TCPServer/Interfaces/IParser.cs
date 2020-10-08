@@ -1,7 +1,8 @@
-﻿namespace Core.Interfaces
+﻿namespace SAUEP.TCPServer.Interfaces
 {
-    interface IParser
+    public interface IParser
     {
-        T Pars<T>(string json);
+        T Pars<T>(string data);
+        string Depars<T>(T data);
     }
 }
