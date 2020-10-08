@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SAUEP.TCPServer.Interfaces;
 using System.IO;
 
@@ -17,9 +13,9 @@ namespace SAUEP.TCPServer.Services
         {
             if (!Directory.Exists(_loggDirectory))
                 Directory.CreateDirectory(_loggDirectory);
-            using (var streamWriter = File.CreateText(_loggDirectory + _loggFile))
+            using (var streamWriter = File.AppendText(_loggDirectory + _loggFile))
             {
-                streamWriter.WriteLine(text);
+                streamWriter.WriteLine(text + " : " + DateTime.Now.ToString());
             }
         }
 
