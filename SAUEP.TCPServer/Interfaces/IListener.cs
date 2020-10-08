@@ -1,5 +1,4 @@
-﻿
-namespace SAUEP.TCPServer.Interfaces
+﻿namespace SAUEP.TCPServer.Interfaces
 {
     interface IListener
     {

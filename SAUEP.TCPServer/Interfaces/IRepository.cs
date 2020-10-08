@@ -2,7 +2,7 @@
 
 namespace SAUEP.TCPServer.Interfaces
 {
-    interface IRepository
+    public interface IRepository
     {
         void Set<T>(T data);
         ICollection<T> GetAll<T>();
