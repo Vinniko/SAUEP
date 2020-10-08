@@ -1,6 +1,6 @@
 ﻿namespace SAUEP.TCPServer.Interfaces
 {
-    interface IWriter
+    public interface IWriter
     {
         void Write<T>(T data);
     }
