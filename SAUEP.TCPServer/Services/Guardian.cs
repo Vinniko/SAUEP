@@ -1,6 +1,5 @@
 ﻿using SAUEP.TCPServer.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace SAUEP.TCPServer.Services
 {
