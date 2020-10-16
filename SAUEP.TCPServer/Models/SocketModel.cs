@@ -1,15 +1,17 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using SAUEP.TCPServer.Interfaces;
 
 namespace SAUEP.TCPServer.Models
 {
-    public sealed class SocketModel
+    public sealed class SocketModel : IModel
     {
         #region Constructors
 
         public SocketModel()
         {
-            ListenSocket = new TcpListener(IPAddress.Parse(_ipAddress), _port);
+            ListenSocket = new TcpListener(IPAddress.Parse(_ipAddress), _listenPort);
+            SaySocket = new TcpClient(_ipAddress, _sayPort);
             ListenSocket.Start();
         }
 
@@ -19,9 +21,13 @@ namespace SAUEP.TCPServer.Models
 
         #region Main Logic
 
-        public TcpClient GetSocket()
+        public TcpClient GetListenSocket()
         {
             return ListenSocket.AcceptTcpClient();
+        }
+        public TcpClient GetSaySocket()
+        {
+            return SaySocket;
         }
 
         #endregion
@@ -34,6 +40,8 @@ namespace SAUEP.TCPServer.Models
         {
             if (ListenSocket != null)
                 ListenSocket.Stop();
+            if (SaySocket != null)
+                SaySocket.Close();
         }
 
         #endregion
@@ -42,9 +50,11 @@ namespace SAUEP.TCPServer.Models
 
         #region Fields
 
-        private int _port = 8005;
+        private const int _listenPort = 8005;
+        private const int _sayPort = 8006;
         private string _ipAddress = "127.0.0.1";
         public TcpListener ListenSocket { get; private set; }
+        public TcpClient SaySocket { get; private set; }
 
         #endregion
     }
