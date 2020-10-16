@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using SAUEP.TCPServer.Interfaces;
 using SAUEP.TCPServer.Services;
+using SAUEP.TCPServer.Repositories;
+using SAUEP.TCPServer.Connections;
 
 namespace SAUEP.TCPServer.Configs
 {
@@ -14,8 +11,15 @@ namespace SAUEP.TCPServer.Configs
         public static IContainer ConfigureContainer()
         {
             var builder = new ContainerBuilder();
+
             builder.RegisterType<Guardian>().SingleInstance();
             builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
+            builder.RegisterType<DataBaseConnection>().As<IConnection>().SingleInstance();
+            builder.RegisterType<PollsRepository>().As<IRepository>().SingleInstance();
+            builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
+            builder.RegisterType<JSONParser>().As<IParser>().SingleInstance();
+            builder.RegisterType<SocketListener>().As<IListener>().SingleInstance();
+            builder.RegisterType<SocketWriter>().As<SocketWriter>().SingleInstance();
 
             return builder.Build();
         }
