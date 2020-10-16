@@ -1,7 +1,9 @@
-﻿namespace SAUEP.TCPServer.Interfaces
+﻿using SAUEP.TCPServer.Models;
+
+namespace SAUEP.TCPServer.Interfaces
 {
-    interface IObserver
+    public interface IObserver
     {
-        void Update();
+        void Update(PollModel pollModel);
     }
 }
