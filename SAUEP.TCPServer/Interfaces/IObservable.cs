@@ -1,6 +1,6 @@
 ﻿namespace SAUEP.TCPServer.Interfaces
 {
-    interface IObservable
+    public interface IObservable
     {
         void AddObserver(IObserver observer);
         void NotifyObservers();
