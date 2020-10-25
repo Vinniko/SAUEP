@@ -21,12 +21,17 @@ namespace SAUEP.TCPServer
             {
                 var guardian = scope.Resolve<Guardian>();
                 var listener = scope.Resolve<IListener>();
-                var socket = new SocketModel();
+                var socket = guardian.Secure(() => 
+                    new SocketModel()).Value;
                 (listener as SocketListener).Socket = socket;
-                (listener as SocketListener).AddObserver(scope.Resolve<SocketWriter>());
-                var listen = new Thread(new ThreadStart(listener.Listen));
-                guardian.Secure(listen.Start);
-                listen.Join();
+                guardian.Secure(() => 
+                    (listener as SocketListener).AddObserver(scope.Resolve<SocketWriter>()));
+                var listen = guardian.Secure(() => 
+                    new Thread(new ThreadStart(listener.Listen))).Value;
+                guardian.Secure(() => 
+                    listen.Start());
+                guardian.Secure(() => 
+                    listen.Join());
             }
         }
     }
