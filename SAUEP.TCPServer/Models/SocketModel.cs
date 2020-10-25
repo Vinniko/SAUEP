@@ -11,7 +11,7 @@ namespace SAUEP.TCPServer.Models
         public SocketModel()
         {
             ListenSocket = new TcpListener(IPAddress.Parse(_ipAddress), _listenPort);
-            SaySocket = new TcpClient(_ipAddress, _sayPort);
+            SaySocket = new TcpListener(IPAddress.Parse(_ipAddress), _sayPort);
             ListenSocket.Start();
         }
 
@@ -27,7 +27,7 @@ namespace SAUEP.TCPServer.Models
         }
         public TcpClient GetSaySocket()
         {
-            return SaySocket;
+            return SaySocket.AcceptTcpClient();
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace SAUEP.TCPServer.Models
             if (ListenSocket != null)
                 ListenSocket.Stop();
             if (SaySocket != null)
-                SaySocket.Close();
+                SaySocket.Stop();
         }
 
         #endregion
@@ -51,10 +51,10 @@ namespace SAUEP.TCPServer.Models
         #region Fields
 
         private const int _listenPort = 8005;
-        private const int _sayPort = 8006;
+        private const int _sayPort = 8003;
         private string _ipAddress = "127.0.0.1";
         public TcpListener ListenSocket { get; private set; }
-        public TcpClient SaySocket { get; private set; }
+        public TcpListener SaySocket { get; private set; }
 
         #endregion
     }
