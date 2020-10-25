@@ -6,10 +6,10 @@ namespace SAUEP.DeviceClient.Models
     {
         #region Constructors
 
-        public DeviceModel(int id, int deviceGroupId, string serial, string title, string ip, string port, bool status, double maxPower, double minPower, double maxElecticityConsumption, double minElecticityConsumption)
+        public DeviceModel(int id, string deviceGroup, string serial, string title, string ip, string port, bool status, double maxPower, double minPower, double maxElecticityConsumption, double minElecticityConsumption)
         {
             Id = id;
-            DeviceGroupId = deviceGroupId;
+            DeviceGroup = deviceGroup;
             Serial = serial;
             Title = title;
             Ip = ip;
@@ -28,7 +28,7 @@ namespace SAUEP.DeviceClient.Models
         #region Fields
 
         public int Id { get; set; }
-        public int DeviceGroupId { get; set; }
+        public string DeviceGroup { get; set; }
         public string Serial { get; set; }
         public string Title { get; set; }
         public string Ip { get; set; }
