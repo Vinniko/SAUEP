@@ -118,6 +118,9 @@
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IWriter.cs" />
+    <Compile Include="Models\DeviceModel.cs" />
+    <Compile Include="Models\PollModel.cs" />
+    <Compile Include="Models\SocketModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -127,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Models\" />
     <Folder Include="Repositories\" />
     <Folder Include="Services\" />
   </ItemGroup>
