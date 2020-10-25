@@ -1,4 +1,4 @@
-﻿using SAUEP.TCPServer.Interfaces;
+﻿using SAUEP.DeviceClient.Interfaces;
 using Npgsql;
 
 namespace SAUEP.DeviceClient.Connections
