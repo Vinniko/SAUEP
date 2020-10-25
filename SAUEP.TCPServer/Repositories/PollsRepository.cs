@@ -57,9 +57,9 @@ namespace SAUEP.TCPServer.Repositories
 
         public IModel GetById(int id)
         {
-            string getJewelQuery = String.Format("SELECT Polls.Id, Devices.Serial, Devices.Ip, Polls.Power, Polls.ElectricityConsumption, Polls.Date FROM Polls " +
+            string getPollQuery = String.Format("SELECT Polls.Id, Devices.Serial, Devices.Ip, Polls.Power, Polls.ElectricityConsumption, Polls.Date FROM Polls " +
                 "INNER JOIN Devices On Devices.Id = Polls.DeviceId WHERE Polls.Id = {0};", id);
-            using (var command = new NpgsqlCommand(getJewelQuery, (_connection as DataBaseConnection).Connection))
+            using (var command = new NpgsqlCommand(getPollQuery, (_connection as DataBaseConnection).Connection))
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
@@ -69,7 +69,7 @@ namespace SAUEP.TCPServer.Repositories
                             reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5));
                         return poll;
                     }
-                    else throw new DataBaseNullSelectException(String.Format("В таблице Jewel не существует записи с Id = {0}", id));
+                    else throw new DataBaseNullSelectException(String.Format("В таблице Polls не существует записи с Id = {0}", id));
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace SAUEP.TCPServer.Repositories
 
         public void Remove<T>(int id)
         {
-            string query = String.Format("DELETE FROM Polls WHERE Id = {0}", id);
+            string query = String.Format("DELETE FROM Polls WHERE Id = {0};", id);
             using (var command = new NpgsqlCommand(query, (_connection as DataBaseConnection).Connection))
             {
                 command.ExecuteNonQuery();
