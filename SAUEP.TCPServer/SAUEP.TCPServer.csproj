@@ -114,9 +114,11 @@
   <ItemGroup>
     <Compile Include="Configs\AutofacConfig.cs" />
     <Compile Include="Connections\DataBaseConnection.cs" />
+    <Compile Include="Exceptions\DataBaseNullSelectException.cs" />
     <Compile Include="Interfaces\IConnection.cs" />
     <Compile Include="Interfaces\IListener.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IObservable.cs" />
     <Compile Include="Interfaces\IObserver.cs" />
     <Compile Include="Interfaces\IParser.cs" />
