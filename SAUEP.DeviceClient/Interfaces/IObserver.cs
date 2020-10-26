@@ -1,7 +1,9 @@
-﻿namespace SAUEP.DeviceClient.Interfaces
+﻿using SAUEP.DeviceClient.Models;
+
+namespace SAUEP.DeviceClient.Interfaces
 {
     public interface IObserver
     {
-        void Update();
+        void Update(PollModel pollModel);
     }
 }
