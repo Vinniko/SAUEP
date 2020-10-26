@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="Configs\AutofacConfig.cs" />
     <Compile Include="Connections\DataBaseConnection.cs" />
+    <Compile Include="Exceptions\DataBaseNullSelectException.cs" />
     <Compile Include="Interfaces\IConnection.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IModel.cs" />
@@ -123,14 +124,13 @@
     <Compile Include="Models\SocketModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\DeviceRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="Repositories\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
