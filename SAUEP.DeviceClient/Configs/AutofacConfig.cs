@@ -15,10 +15,11 @@ namespace SAUEP.DeviceClient.Configs
             builder.RegisterType<Guardian>().SingleInstance();
             builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
             builder.RegisterType<DataBaseConnection>().As<IConnection>().SingleInstance();
-            builder.RegisterType<DevicesRepository>().As<IRepository>().SingleInstance();
+            builder.RegisterType<DeviceRepository>().As<IRepository>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
             builder.RegisterType<JSONParser>().As<IParser>().SingleInstance();
             builder.RegisterType<SocketWriter>().As<SocketWriter>().SingleInstance();
+            builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
             builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
 
             return builder.Build();
