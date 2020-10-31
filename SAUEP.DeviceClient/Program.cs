@@ -1,66 +1,38 @@
-﻿using System;
-using System.Text;
-using System.Net;
-using System.Net.Sockets;
-using System.IO;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using SAUEP.DeviceClient.Services;
 using SAUEP.DeviceClient.Configs;
 using Autofac;
+using SAUEP.DeviceClient.Interfaces;
+using SAUEP.DeviceClient.Models;
 
 namespace SAUEP.DeviceClient
 {
     class Program
     {
-        const int PORT = 8005;
-        const string ADDRESS = "127.0.0.1";
         static void Main(string[] args)
         {
             IContainer container = AutofacConfig.ConfigureContainer();
             Guardian guardian = container.Resolve<Guardian>();
-            ResultGenerator generator = container.Resolve<ResultGenerator>();
-            guardian.Secure(generator.Generate);
-            //Thread myThread = new Thread(new ThreadStart(work));
-            //Thread myThread1 = new Thread(new ThreadStart(work));
-            //Thread myThread2 = new Thread(new ThreadStart(work));
-            //myThread.Start(); // запускаем поток
-            //myThread1.Start();
-            //myThread2.Start();
-
-            //for (int i = 1; i < 9; i++)
-            //{
-            //    work();
-            //}
-
-            //Console.ReadLine();
-        }
-        public static void work()
-        {
-            TcpClient client = null;
-            try
+            IWriter socketWriter = guardian.Secure(()=>container.Resolve<SocketWriter>()).Value;
+            ResultGenerator generator = guardian.Secure(()=>container.Resolve<ResultGenerator>()).Value;
+            guardian.Secure(() => generator.AddObserver(socketWriter as SocketWriter));
+            IRepository deviceRepository = guardian.Secure(() => container.Resolve<IRepository>()).Value;
+            while (true)
             {
-                client = new TcpClient(ADDRESS, PORT);
-                Console.Write("Введите сообщение: ");
-                string message = "kek";
-                NetworkStream stream = client.GetStream();
-
-                // отправляем сообщение
-                BinaryWriter writer = new BinaryWriter(stream);
-                writer.Write(message);
-                writer.Flush();
-
-
-                writer.Close();
-                stream.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                if (client != null)
-                    client.Close();
+                IModel socket = guardian.Secure(() => new SocketModel()).Value;
+                (socketWriter as SocketWriter).Socket = socket as SocketModel;
+                ICollection<Thread> threads = new List<Thread>();
+                foreach (var device in deviceRepository.Get<DeviceModel>())
+                {
+                    threads.Add(new Thread(new ParameterizedThreadStart(generator.Generate)));
+                    threads.ElementAt(threads.Count - 1).Start(device);
+                }
+                foreach (var thread in threads)
+                {
+                    thread.Join();
+                }
             }
         }
     }
