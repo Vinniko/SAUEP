@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using SAUEP.DeviceClient.Interfaces;
 using SAUEP.DeviceClient.Models;
 
@@ -12,9 +9,8 @@ namespace SAUEP.DeviceClient.Services
     {
         #region Constructors
 
-        public ResultGenerator(IRepository repository)
+        public ResultGenerator()
         {
-            _deviceRepository = repository;
             _observers = new List<IObserver>();
             
         }
@@ -26,27 +22,11 @@ namespace SAUEP.DeviceClient.Services
 
         #region Main Logic
 
-        public void Generate()
-        {
-            while (true)
-            {
-                ICollection<Thread> threads = new List<Thread>();
-                foreach(var device in _deviceRepository.Get<DeviceModel>())
-                {
-                    threads.Add(new Thread(new ParameterizedThreadStart(CreateRandomPoll)));
-                    threads.ElementAt(threads.Count - 1).Start(device);
-                }
-                foreach(var thread in threads)
-                {
-                    thread.Join();
-                }
-            }
-        }
-        private void CreateRandomPoll(object device)
+        public void Generate(object device)
         {
             Random random = new Random();
-            NotifyObservers(new PollModel(0, (device as DeviceModel).Serial, (device as DeviceModel).Ip, random.Next((int)(device as DeviceModel).MinPower, (int)(device as DeviceModel).MaxPower),
-                random.Next((int)(device as DeviceModel).MinElecticityConsumption, (int)(device as DeviceModel).MaxElecticityConsumption), DateTime.Now));
+            NotifyObservers(new PollModel(0, (device as DeviceModel).Serial, (device as DeviceModel).Ip, random.Next((int)(device as DeviceModel).MinPower - 2, (int)(device as DeviceModel).MaxPower + 2),
+                random.Next((int)(device as DeviceModel).MinElecticityConsumption - 2, (int)(device as DeviceModel).MaxElecticityConsumption + 2), DateTime.Now));
         }
         public void AddObserver(IObserver observer)
         {
@@ -72,7 +52,6 @@ namespace SAUEP.DeviceClient.Services
 
         #region Fields
 
-        private IRepository _deviceRepository;
         private ICollection<IObserver> _observers;
 
         #endregion
