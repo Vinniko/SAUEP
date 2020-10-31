@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SAUEP.TCPServer.Interfaces;
-using SAUEP.TCPServer.Models;
-using SAUEP.TCPServer.Services;
+﻿using SAUEP.DeviceClient.Interfaces;
+using SAUEP.DeviceClient.Models;
 using System.IO;
 
-namespace SAUEP.TCPServer.Services
+namespace SAUEP.DeviceClient.Services
 {
     public sealed class SocketWriter : IWriter, IObserver
     {
         #region Constructors
 
-        public SocketWriter(IParser parser, ConsoleWriter writer, ILogger logger)
+        public SocketWriter(IParser parser, IWriter writer, ILogger logger)
         {
             _parser = parser;
             _consoleWriter = writer;
@@ -29,7 +23,7 @@ namespace SAUEP.TCPServer.Services
 
         public void Write<T>(T data)
         {
-            using (var client = Socket.GetSaySocket())
+            using (var client = Socket.SaySocket)
             {
                 using (var stream = client.GetStream())
                 {
@@ -37,8 +31,8 @@ namespace SAUEP.TCPServer.Services
                     {
                         writer.Write(_parser.Depars<PollModel>(data as PollModel));
                         writer.Flush();
-                        _consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Serial);
-                        _logger.Logg("Отправлено с сервера: " + (data as PollModel).Serial);
+                        _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
+                        _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
                     }
                 }
             }

@@ -1,13 +1,12 @@
 ﻿using System;
-using SAUEP.TCPServer.Interfaces;
+using SAUEP.DeviceClient.Interfaces;
 
-namespace SAUEP.TCPServer.Models
+namespace SAUEP.DeviceClient.Models
 {
     public sealed class PollModel : IModel
     {
         #region Constructors
 
-        public PollModel() { }
         public PollModel(int id, string serial, string ip, double power, double electricityConsumption, DateTime date)
         {
             Id = id;
