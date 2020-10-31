@@ -18,7 +18,7 @@ namespace SAUEP.DeviceClient.Configs
             builder.RegisterType<DeviceRepository>().As<IRepository>().SingleInstance();
             builder.RegisterType<ConsoleWriter>().As<IWriter>().SingleInstance();
             builder.RegisterType<JSONParser>().As<IParser>().SingleInstance();
-            builder.RegisterType<SocketWriter>().As<SocketWriter>().SingleInstance();
+            builder.RegisterType<SocketWriter>().AsSelf().SingleInstance();
             builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
             builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
 
