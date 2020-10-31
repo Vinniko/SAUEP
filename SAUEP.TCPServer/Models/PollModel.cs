@@ -7,6 +7,7 @@ namespace SAUEP.TCPServer.Models
     {
         #region Constructors
 
+        public PollModel() { }
         public PollModel(int id, string serial, string ip, double power, double electricityConsumption, DateTime date)
         {
             Id = id;
