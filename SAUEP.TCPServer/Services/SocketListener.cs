@@ -39,8 +39,8 @@ namespace SAUEP.TCPServer.Services
                             _consoleWriter.Write("Получено: " + _pollModel.Id);
                             _logger.Logg("Получено: " + _pollModel.Id);
                             _repository.Set(_pollModel);
-                            _consoleWriter.Write("Записано в базу данных: " + _pollModel.Id);
-                            _logger.Logg("Записано в базу данных: " + _pollModel.Id);
+                            _consoleWriter.Write("Записано в базу данных: " + _pollModel.Serial);
+                            _logger.Logg("Записано в базу данных: " + _pollModel.Serial);
                             NotifyObservers();
                         }
                     }

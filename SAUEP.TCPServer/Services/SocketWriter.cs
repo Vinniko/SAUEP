@@ -37,8 +37,8 @@ namespace SAUEP.TCPServer.Services
                     {
                         writer.Write(_parser.Depars<PollModel>(data as PollModel));
                         writer.Flush();
-                        _consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Id);
-                        _logger.Logg("Отправлено с сервера: " + (data as PollModel).Id);
+                        _consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Serial);
+                        _logger.Logg("Отправлено с сервера: " + (data as PollModel).Serial);
                     }
                 }
             }
