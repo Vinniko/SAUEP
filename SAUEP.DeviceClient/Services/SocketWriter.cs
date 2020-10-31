@@ -8,7 +8,7 @@ namespace SAUEP.DeviceClient.Services
     {
         #region Constructors
 
-        public SocketWriter(IParser parser, ConsoleWriter writer, ILogger logger)
+        public SocketWriter(IParser parser, IWriter writer, ILogger logger)
         {
             _parser = parser;
             _consoleWriter = writer;
@@ -31,8 +31,8 @@ namespace SAUEP.DeviceClient.Services
                     {
                         writer.Write(_parser.Depars<PollModel>(data as PollModel));
                         writer.Flush();
-                        _consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Id);
-                        _logger.Logg("Отправлено с сервера: " + (data as PollModel).Id);
+                        _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
+                        _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
                     }
                 }
             }
