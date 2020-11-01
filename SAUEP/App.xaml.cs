@@ -9,21 +9,18 @@ using Autofac;
 using Autofac.Core;
 using SAUEP.WPF.Configs;
 
-namespace SAUEP
+namespace SAUEP.WPF
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            IContainer container = AutofacConfig.ConfigureContainer();
-            //var scenarioReader = new ScenarioReader(container.Resolve<Guardian>());
-            //scenarioReader.Read("f");
-
-            //var orfografferView = new OrfografferView(container.Resolve<BaseVM>() as OrfografferViewModel);
-            //orfografferView.Show();
+            base.OnStartup(e);
+            var bootstapper = new Bootstrapper();
+            bootstapper.Run();
         }
     }
 }
