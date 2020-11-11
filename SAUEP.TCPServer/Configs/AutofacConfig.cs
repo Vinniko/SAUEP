@@ -20,6 +20,7 @@ namespace SAUEP.TCPServer.Configs
             builder.RegisterType<JSONParser>().As<IParser>().SingleInstance();
             builder.RegisterType<SocketListener>().As<IListener>().SingleInstance();
             builder.RegisterType<SocketWriter>().As<SocketWriter>().SingleInstance();
+            builder.RegisterType<FileReader>().As<IReader>().SingleInstance();
 
             return builder.Build();
         }
