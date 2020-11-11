@@ -1,4 +1,5 @@
 ﻿using SAUEP.TCPServer.Interfaces;
+using SAUEP.TCPServer.Models;
 using Npgsql;
 
 namespace SAUEP.TCPServer.Connections
@@ -7,9 +8,12 @@ namespace SAUEP.TCPServer.Connections
     {
         #region Constructors
 
-        public DataBaseConnection()
+        public DataBaseConnection(IReader reader, IParser jsonParser )
         {
-            Connection = new NpgsqlConnection(_connection);
+            _reader = reader;
+            _parser = jsonParser;
+            var connection = _parser.Pars<ConnectionModel>(reader.Read(_connectionFile));
+            Connection = new NpgsqlConnection(string.Format(_connection, (connection as ConnectionModel).Host, (connection as ConnectionModel).Username, (connection as ConnectionModel).Password, (connection as ConnectionModel).Database));
             Connection.Open();
         }
 
@@ -29,7 +33,10 @@ namespace SAUEP.TCPServer.Connections
 
         #region Fields
 
-        private const string _connection = "Host=localhost;Username=postgres;Password=123456789q;Database=SAUEPOLTP";
+        private const string _connection = "Host={0};Username={1};Password={2};Database={3}";
+        private const string _connectionFile = @"Connections\Connection.json";
+        private IReader _reader;
+        private IParser _parser;
         public NpgsqlConnection Connection { get; set; }
 
         #endregion
