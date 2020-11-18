@@ -21,6 +21,7 @@ namespace SAUEP.DeviceClient.Configs
             builder.RegisterType<SocketWriter>().AsSelf().SingleInstance();
             builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
             builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
+            builder.RegisterType<FileReader>().As<IReader>().SingleInstance();
 
             return builder.Build();
         }

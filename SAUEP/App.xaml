@@ -1,8 +1,8 @@
-﻿<Application x:Class="SAUEP.App"
+﻿<Application x:Class="SAUEP.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SAUEP"
-             Startup="Application_Startup">
+             xmlns:local="clr-namespace:SAUEP.WPF"
+             >
     <Application.Resources>
          
     </Application.Resources>
