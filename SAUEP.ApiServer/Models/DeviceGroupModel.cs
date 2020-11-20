@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SAUEP.ApiServer.Interfaces;
+﻿using SAUEP.ApiServer.Interfaces;
 
 namespace SAUEP.ApiServer.Models
 {
