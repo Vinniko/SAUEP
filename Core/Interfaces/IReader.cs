@@ -8,6 +8,6 @@ namespace Core.Interfaces
 {
     public interface IReader
     {
-        object Read();
+        string Read();
     }
 }
