@@ -1,10 +1,9 @@
-﻿using Core.Interfaces;
+﻿using SAUEP.Core.Interfaces;
 using System;
-using System.Collections.Generic;
 
-namespace Core.Services
+namespace SAUEP.Core.Services
 {
-    public sealed class Guardian
+    public sealed class Guardian : IGuardian
     {
         #region Constructors
 

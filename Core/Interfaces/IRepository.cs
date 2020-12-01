@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Core.Interfaces
+namespace SAUEP.Core.Interfaces
 {
-    interface IRepository
+    public interface IRepository
     {
         void Set<T>(T data);
-        object GetAll();
-        object GetByIndex(int index);
-        void Clear();
-        void Remove<T>(T obj);
+        ICollection<T> Get<T>();
+        IModel GetById(int id);
+        void Update<T>(int id, T data);
+        void Remove<T>(int id);
     }
 }
