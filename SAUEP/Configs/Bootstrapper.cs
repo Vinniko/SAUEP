@@ -16,7 +16,7 @@ namespace SAUEP.WPF.Configs
 
         protected override DependencyObject CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<SAUEPWindow>();
         }
         protected override void InitializeShell()
         {
