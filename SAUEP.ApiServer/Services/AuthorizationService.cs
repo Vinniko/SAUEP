@@ -35,7 +35,7 @@ namespace SAUEP.ApiServer.Services
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Id.ToString()),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
                 };
                 ClaimsIdentity claimsIdentity =
