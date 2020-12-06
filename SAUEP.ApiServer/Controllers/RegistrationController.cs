@@ -43,7 +43,7 @@ namespace SAUEP.ApiServer.Controllers
             else
             {
                 _logger.Logg($"Попытка регистрации существующего {login} с ip адресса: {Request.HttpContext.Connection.RemoteIpAddress}");
-                return BadRequest("User exsists");
+                return Problem(detail: "User exsists", statusCode: (int)BadRequest().StatusCode);
             }
                 
         }
