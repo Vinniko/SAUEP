@@ -49,7 +49,7 @@ namespace SAUEP.ApiServer.Controllers
             var response = new
             {
                 access_token = encodedJwt,
-                username = identity.Name
+                id = identity.Name
             };
             _logger.Logg($"{username} с ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} успешно прошёл авторизацию");
             return Json(response);
