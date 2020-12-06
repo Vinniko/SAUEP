@@ -107,7 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\SAUEPWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -118,9 +118,9 @@
     <Compile Include="Configs\BaseVM.cs" />
     <Compile Include="Configs\Bootstrapper.cs" />
     <Compile Include="Configs\RelayCommand.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ViewModels\SAUEPWindowViewModel.cs" />
+    <Compile Include="Views\SAUEPWindow.xaml.cs">
+      <DependentUpon>SAUEPWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
