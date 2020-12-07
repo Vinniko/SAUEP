@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using SAUEP.Core.Models;
 using SAUEP.Core.Interfaces;
 using SAUEP.Core.Exceptions;
+using SAUEP.Core.Connections;
+using System;
 
 namespace SAUEP.Core.Services
 {
@@ -27,7 +29,7 @@ namespace SAUEP.Core.Services
         {
             try
             {
-                WebRequest request = WebRequest.Create(_connection + "auth");
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + "auth");
                 request.Method = "POST";
                 string data = $"username={login}&password={password}";
                 byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(data);
