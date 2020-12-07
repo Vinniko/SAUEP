@@ -5,7 +5,10 @@ namespace SAUEP.Core.Models
     public sealed class UserModel : IModel
     {
         #region Constructros
+        public UserModel()
+        {
 
+        }
         public UserModel(string login, string password, string email, int id = 0, string role = "Пользователь")
         {
             Id = id;
