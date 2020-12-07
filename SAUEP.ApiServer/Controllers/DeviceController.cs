@@ -64,7 +64,9 @@ namespace SAUEP.ApiServer.Controllers
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/device/updateDevice?id={id}&deviceGroup={deviceGroup}&serial={serial}&title={title}" +
                 $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}&maxElecticityConsumption={maxElecticityConsumption}&minElecticityConsumption={minElecticityConsumption}");
-            _guardian.Secure(() => _deviceRepository.Update(id, new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower, maxElecticityConsumption, minElecticityConsumption)));
+            var exception  = _guardian.Secure(() => _deviceRepository.Update(id, new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower, maxElecticityConsumption, minElecticityConsumption))).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
         }
 

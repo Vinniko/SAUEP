@@ -47,7 +47,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult UpdateUser(int id, string login, string password, string email)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/user/updateUser?id={id}&login={login}&password={password}");
-            _guardian.Secure(() => _userRepository.Update(id, new UserModel(login, password, email, default, default)));
+            var exception = _guardian.Secure(() => _userRepository.Update(id, new UserModel(login, password, email, default, default))).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
         }
 
