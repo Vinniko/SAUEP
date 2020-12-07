@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SAUEP.Core.Interfaces;
 using SAUEP.Core.Models;
 using SAUEP.Core.Exceptions;
+using SAUEP.Core.Connections;
 
 namespace SAUEP.Core.Repositories
 {
@@ -25,11 +26,11 @@ namespace SAUEP.Core.Repositories
 
         #region Main Logic
 
-        public async void Set<T>(T data, string token)
+        public async Task Set<T>(T data, string token)
         {
             try
             {
-                WebRequest request = WebRequest.Create(_connection + "reg");
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + "reg");
                 request.Method = "POST";
                 string requestData = $"login={(data as UserModel).Login}&password={(data as UserModel).Password}&email={(data as UserModel).Email}";
                 byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(requestData);
@@ -46,7 +47,7 @@ namespace SAUEP.Core.Repositories
             {
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
                 if ((int)httpResponse.StatusCode == 400)
-                    throw new RegistrationException("Такой логин уже существует");
+                     throw new RegistrationException("Такой логин уже существует");
                 else if ((int)httpResponse.StatusCode == 401)
                     throw new TokenLifetimeException("Время жизни токена авторизации истекло");
                 else throw new RegistrationException("Неизвестная ошибка регистрации");
@@ -57,7 +58,7 @@ namespace SAUEP.Core.Repositories
         {
             try
             {
-                WebRequest request = WebRequest.Create(_connection + "api/user/getUsers");
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + "api/user/getUsers");
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "Bearer " + token);
                 using (WebResponse response = await request.GetResponseAsync())
@@ -74,7 +75,9 @@ namespace SAUEP.Core.Repositories
             catch (WebException ex)
             {
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
-                throw new Exception(((int)httpResponse.StatusCode).ToString()); 
+                if ((int)httpResponse.StatusCode == 401)
+                    throw new TokenLifetimeException("Время жизни токена авторизации истекло");
+                else throw new Exception("Неизвестная ошибка получения списка пользователей, с кодом: " + ((int)httpResponse.StatusCode).ToString()); 
             }
         }
 
@@ -82,7 +85,7 @@ namespace SAUEP.Core.Repositories
         {
             try
             {
-                WebRequest request = WebRequest.Create(_connection + $"api/user/getUser?id={id}");
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/user/getUser?id={id}");
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "Bearer " + token);
                 using (WebResponse response = await request.GetResponseAsync())
@@ -99,17 +102,20 @@ namespace SAUEP.Core.Repositories
             catch (WebException ex)
             {
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
-                throw new Exception(((int)httpResponse.StatusCode).ToString());
+                if ((int)httpResponse.StatusCode == 401)
+                    throw new TokenLifetimeException("Время жизни токена авторизации истекло");
+                else throw new Exception("Неизвестная ошибка получения пользователя, с кодом: " + ((int)httpResponse.StatusCode).ToString());
             }
         }
 
-        public async void Update<T>(int id, T data, string token)
+        public async Task Update<T>(int id, T data, string token)
         {
             try
             {
-                WebRequest request = WebRequest.Create(_connection + $"api/user/updateUser?id={id}&login={(data as UserModel).Login}" +
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/user/updateUser?id={id}&login={(data as UserModel).Login}" +
                     $"&password={(data as UserModel).Password}&email={(data as UserModel).Email}");
                 request.Method = "PUT";
+                request.ContentLength = 0;
                 request.Headers.Add("Authorization", "Bearer " + token);
                 WebResponse response = await request.GetResponseAsync();
             }
@@ -124,11 +130,11 @@ namespace SAUEP.Core.Repositories
             }
         }
 
-        public async void Remove<T>(int id, string token)
+        public async Task Remove<T>(int id, string token)
         {
             try
             {
-                WebRequest request = WebRequest.Create(_connection + $"api/user/deleteUser?id={id}");
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/user/deleteUser?id={id}");
                 request.Method = "DELETE";
                 request.Headers.Add("Authorization", "Bearer " + token);
                 WebResponse response = await request.GetResponseAsync();
