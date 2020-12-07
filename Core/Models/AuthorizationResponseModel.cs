@@ -4,7 +4,7 @@ namespace SAUEP.Core.Models
 {
     public sealed class AuthorizationResponseModel : IModel
     {
-        public string acces_token { get; set; }
-        public int id { get; set; }
+        public string access_token { get; set; }
+        public string id { get; set; }
     }
 }
