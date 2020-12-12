@@ -6,6 +6,10 @@ namespace SAUEP.Core.Models
     {
         #region Constructors
 
+        public DeviceModel()
+        {
+
+        }
         public DeviceModel(string deviceGroup, string serial, string title, string ip, string port, bool status, double maxPower, double minPower, double maxElecticityConsumption, double minElecticityConsumption, int id = 0)
         {
             Id = id;

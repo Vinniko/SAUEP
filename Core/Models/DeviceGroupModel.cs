@@ -9,7 +9,11 @@ namespace SAUEP.Core.Models
     public sealed class DeviceGroupModel : IModel
     {
         #region Constructors
+        
+        public DeviceGroupModel()
+        {
 
+        }
         public DeviceGroupModel(string title, int id = 0)
         {
             Id = id;

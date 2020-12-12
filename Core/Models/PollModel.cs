@@ -7,6 +7,10 @@ namespace SAUEP.Core.Models
     {
         #region Constructors
 
+        public PollModel()
+        {
+
+        }
         public PollModel(string serial, string ip, double power, double electricityConsumption, DateTime date, int id = 0)
         {
             Id = id;
