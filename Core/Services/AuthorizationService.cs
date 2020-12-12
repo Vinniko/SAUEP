@@ -55,8 +55,8 @@ namespace SAUEP.Core.Services
             {
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
                 if((int)httpResponse.StatusCode == 400)
-                    throw new AuthorizationExcepton("Неправильный логин или пароль");
-                else throw new AuthorizationExcepton("Неизвестная ошибка авторизации");
+                    throw new AuthorizationException("Неправильный логин или пароль");
+                else throw new AuthorizationException("Неизвестная ошибка авторизации");
             }
         }
 
