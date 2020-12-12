@@ -33,7 +33,9 @@ namespace SAUEP.ApiServer.Controllers
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/poll/setPoll?serial={serial}&ip={ip}&power={power}" +
                 $"&electricityConsumption={electricityConsumption}&date={date}");
-            _guardian.Secure(() => _pollRepository.Set(new PollModel(serial, serial, power, electricityConsumption, date)));
+            var exception = _guardian.Secure(() => _pollRepository.Set(new PollModel(serial, serial, power, electricityConsumption, date))).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
         }
 
@@ -59,7 +61,9 @@ namespace SAUEP.ApiServer.Controllers
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/poll/updatePoll?id={id}&serial={serial}&ip={ip}&power={power}" +
                 $"&electricityConsumption={electricityConsumption}&date={date}");
-            _guardian.Secure(() => _pollRepository.Update(id, new PollModel(serial, serial, power, electricityConsumption, date)));
+            var exception = _guardian.Secure(() => _pollRepository.Update(id, new PollModel(serial, serial, power, electricityConsumption, date))).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
         }
 

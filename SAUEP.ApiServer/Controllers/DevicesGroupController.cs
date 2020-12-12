@@ -31,7 +31,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult SetDeviceGroup(string title)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/devicesgroup/setDeviceGroup?title={title}");
-            _guardian.Secure(() => _deviceGroupRepository.Set(new DeviceGroupModel(title)));
+            var exception =  _guardian.Secure(() => _deviceGroupRepository.Set(new DeviceGroupModel(title))).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
         }
 
