@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
@@ -77,7 +76,7 @@ namespace SAUEP.Core.Repositories
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
                 if ((int)httpResponse.StatusCode == 401)
                     throw new TokenLifetimeException("Время жизни токена авторизации истекло");
-                else throw new Exception("Неизвестная ошибка получения списка пользователей, с кодом: " + ((int)httpResponse.StatusCode).ToString()); 
+                else throw new GetUsersException("Неизвестная ошибка получения списка пользователей, с кодом: " + ((int)httpResponse.StatusCode).ToString()); 
             }
         }
 
@@ -104,7 +103,7 @@ namespace SAUEP.Core.Repositories
                 HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
                 if ((int)httpResponse.StatusCode == 401)
                     throw new TokenLifetimeException("Время жизни токена авторизации истекло");
-                else throw new Exception("Неизвестная ошибка получения пользователя, с кодом: " + ((int)httpResponse.StatusCode).ToString());
+                else throw new GetUserException("Неизвестная ошибка получения пользователя, с кодом: " + ((int)httpResponse.StatusCode).ToString());
             }
         }
 
@@ -126,7 +125,7 @@ namespace SAUEP.Core.Repositories
                     throw new RegistrationException("Такой логин уже существует");
                 else if ((int)httpResponse.StatusCode == 401)
                     throw new TokenLifetimeException("Время жизни токена авторизации истекло");
-                else throw new RegistrationException("Неизвестная ошибка обновления пользователя");
+                else throw new UserUpdateException("Неизвестная ошибка обновления пользователя");
             }
         }
 
@@ -146,7 +145,7 @@ namespace SAUEP.Core.Repositories
                     throw new RegistrationException("Такого пользователя не существует");
                 else if ((int)httpResponse.StatusCode == 401)
                     throw new TokenLifetimeException("Время жизни токена авторизации истекло");
-                else throw new RegistrationException("Неизвестная ошибка удаление пользователя");
+                else throw new UserRemoveException("Неизвестная ошибка удаление пользователя");
             }
         }
 
