@@ -31,8 +31,7 @@ namespace SAUEP.Core.Repositories
             {
                 WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/device/setDevice?deviceGroup={(data as DeviceModel).DeviceGroup}" +
                     $"&serial={(data as DeviceModel).Serial}&title={(data as DeviceModel).Title}&ip={(data as DeviceModel).Ip}&port={(data as DeviceModel).Port}&status={(data as DeviceModel).Status}" +
-                    $"&maxPower={(data as DeviceModel).MaxPower}&minPower={(data as DeviceModel).MinPower}&maxElecticityConsumption={(data as DeviceModel).MaxElecticityConsumption}" +
-                    $"&minElecticityConsumption={(data as DeviceModel).MinElecticityConsumption}");
+                    $"&maxPower={(data as DeviceModel).MaxPower}&minPower={(data as DeviceModel).MinPower}");
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = 0;
@@ -63,7 +62,7 @@ namespace SAUEP.Core.Repositories
                     {
                         using (StreamReader reader = new StreamReader(stream))
                         {
-                            return _jsonParser.Pars<ICollection<T>>(reader.ReadToEnd());
+                            return _jsonParser.Pars<ICollection<T>>(await reader.ReadToEndAsync());
                         }
                     }
                 }
@@ -110,8 +109,7 @@ namespace SAUEP.Core.Repositories
             {
                 WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/device/updateDevice?id={id}&deviceGroup={(data as DeviceModel).DeviceGroup}" +
                     $"&serial={(data as DeviceModel).Serial}&title={(data as DeviceModel).Title}&ip={(data as DeviceModel).Ip}&port={(data as DeviceModel).Port}&status={(data as DeviceModel).Status}" +
-                    $"&maxPower={(data as DeviceModel).MaxPower}&minPower={(data as DeviceModel).MinPower}&maxElecticityConsumption={(data as DeviceModel).MaxElecticityConsumption}" +
-                    $"&minElecticityConsumption={(data as DeviceModel).MinElecticityConsumption}");
+                    $"&maxPower={(data as DeviceModel).MaxPower}&minPower={(data as DeviceModel).MinPower}");
                 request.Method = "PUT";
                 request.ContentLength = 0;
                 request.Headers.Add("Authorization", "Bearer " + token);
