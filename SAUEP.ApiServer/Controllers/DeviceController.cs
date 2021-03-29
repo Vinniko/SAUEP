@@ -30,12 +30,11 @@ namespace SAUEP.ApiServer.Controllers
         [HttpPost("setDevice")]
         public IActionResult SetDevice(string deviceGroup, string serial, string title, 
             string ip, string port, bool status, 
-            double maxPower, double minPower, double maxElecticityConsumption, 
-            double minElecticityConsumption)
+            double maxPower, double minPower)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/device/setDevice?deviceGroup={deviceGroup}&serial={serial}&title={title}" +
-                $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}&maxElecticityConsumption={maxElecticityConsumption}&minElecticityConsumption={minElecticityConsumption}");
-            var exception = _guardian.Secure(() => _deviceRepository.Set(new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower, maxElecticityConsumption, minElecticityConsumption))).Exception;
+                $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}");
+            var exception = _guardian.Secure(() => _deviceRepository.Set(new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower))).Exception;
             if (exception != null)
                 return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
@@ -61,12 +60,11 @@ namespace SAUEP.ApiServer.Controllers
         [HttpPut("updateDevice")]
         public IActionResult UpdateDevice(int id, string deviceGroup, string serial, 
             string title, string ip, string port, 
-            bool status, double maxPower, double minPower, 
-            double maxElecticityConsumption, double minElecticityConsumption)
+            bool status, double maxPower, double minPower)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/device/updateDevice?id={id}&deviceGroup={deviceGroup}&serial={serial}&title={title}" +
-                $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}&maxElecticityConsumption={maxElecticityConsumption}&minElecticityConsumption={minElecticityConsumption}");
-            var exception  = _guardian.Secure(() => _deviceRepository.Update(id, new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower, maxElecticityConsumption, minElecticityConsumption))).Exception;
+                $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}");
+            var exception  = _guardian.Secure(() => _deviceRepository.Update(id, new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower))).Exception;
             if (exception != null)
                 return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();

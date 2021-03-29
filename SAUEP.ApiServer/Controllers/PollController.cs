@@ -29,11 +29,11 @@ namespace SAUEP.ApiServer.Controllers
 
         [Authorize]
         [HttpPost("setPoll")]
-        public IActionResult SetPoll(string serial, string ip, double power, double electricityConsumption, DateTime date)
+        public IActionResult SetPoll(string serial, string ip, double power, double electricityConsumption, string date)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/poll/setPoll?serial={serial}&ip={ip}&power={power}" +
                 $"&electricityConsumption={electricityConsumption}&date={date}");
-            var exception = _guardian.Secure(() => _pollRepository.Set(new PollModel(serial, serial, power, electricityConsumption, date))).Exception;
+            var exception = _guardian.Secure(() => _pollRepository.Set(new PollModel(serial, serial, power, electricityConsumption, DateTime.Parse(date)))).Exception;
             if (exception != null)
                 return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
@@ -53,6 +53,14 @@ namespace SAUEP.ApiServer.Controllers
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/poll/getPoll?id={id}");
             return _guardian.Secure(() => _jsonParser.Depars(_pollRepository.GetById(id) as PollModel)).Value;
+        }
+
+        [Authorize]
+        [HttpGet("getLastPolls")]
+        public string GetLastPolls(int qty, DateTime dateTime, string serial)
+        {
+            _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/poll/getLastPolls?qty={qty}&dateTime={dateTime}&serial={serial}");
+            return _guardian.Secure(() => _jsonParser.Depars((_pollRepository as PollRepository).Get<PollModel>(qty, dateTime, serial))).Value;
         }
 
         [Authorize]

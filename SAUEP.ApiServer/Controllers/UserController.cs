@@ -44,10 +44,10 @@ namespace SAUEP.ApiServer.Controllers
 
         [Authorize]
         [HttpPut("updateUser")]
-        public IActionResult UpdateUser(int id, string login, string password, string email)
+        public IActionResult UpdateUser(int id, string login, string password, string email, string role)
         {
-            _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/user/updateUser?id={id}&login={login}&password={password}");
-            var exception = _guardian.Secure(() => _userRepository.Update(id, new UserModel(login, password, email, default, default))).Exception;
+            _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/user/updateUser?id={id}&login={login}&password={password}&email={email}&role={role}");
+            var exception = _guardian.Secure(() => _userRepository.Update(id, new UserModel(login, password, email, default, role))).Exception;
             if (exception != null)
                 return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
             return Ok();
