@@ -38,6 +38,12 @@
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -62,8 +68,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -101,12 +107,119 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\CreateDeviceEvent.cs" />
+    <Compile Include="Events\DeleteDeviceEvent.cs" />
+    <Compile Include="Events\GoOnCreateDevicePageEvent.cs" />
+    <Compile Include="Events\GoOnCreateDevicePollPageEvent.cs" />
+    <Compile Include="Events\GoOnCreateUserPageEvent.cs" />
+    <Compile Include="Events\GoOnUpdateDeviceGroupPageEvent.cs" />
+    <Compile Include="Events\GoOnUpdateDevicePageEvent.cs" />
+    <Compile Include="Events\GoOnUpdateUserEvent.cs" />
+    <Compile Include="Events\GoOnUsersPage.cs" />
+    <Compile Include="Events\SelectUserModelEvent.cs" />
+    <Compile Include="Events\UdpateDeviceGroupModelEvent.cs" />
+    <Compile Include="Events\UpdateDeviceEvent.cs" />
+    <Compile Include="ViewModels\CreateDevicePageViewModel.cs" />
+    <Compile Include="ViewModels\CreateDevicePollPageViewModel.cs" />
+    <Compile Include="ViewModels\CreateUserPageViewModel.cs" />
+    <Compile Include="ViewModels\UpdateDeviceGroupPageViewModel.cs" />
+    <Compile Include="ViewModels\UpdateDevicePageViewModel.cs" />
+    <Compile Include="ViewModels\UpdateUserPageViewModel.cs" />
+    <Compile Include="ViewModels\UserPageViewModel.cs" />
+    <Compile Include="ViewModels\UsersPageViewModel.cs" />
+    <Compile Include="Views\CreateDevicePage.xaml.cs">
+      <DependentUpon>CreateDevicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateDevicePollPage.xaml.cs">
+      <DependentUpon>CreateDevicePollPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateUserPage.xaml.cs">
+      <DependentUpon>CreateUserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateDeviceGroupPage.xaml.cs">
+      <DependentUpon>UpdateDeviceGroupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateDevicePage.xaml.cs">
+      <DependentUpon>UpdateDevicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdateUserPage.xaml.cs">
+      <DependentUpon>UpdateUserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AuthorizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateDeviceGroupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateDevicePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateDevicePollPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceDispatcherPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceGroupHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DevicePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DispatcherPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExpensesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OneDeviceHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SAUEPWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,11 +231,90 @@
     <Compile Include="Configs\BaseVM.cs" />
     <Compile Include="Configs\Bootstrapper.cs" />
     <Compile Include="Configs\RelayCommand.cs" />
+    <Compile Include="Events\AuthorizeEvent.cs" />
+    <Compile Include="Events\ChangePageEvent.cs" />
+    <Compile Include="Events\CloseEvent.cs" />
+    <Compile Include="Events\DataUpdateEvent.cs" />
+    <Compile Include="Events\ExceptionEvent.cs" />
+    <Compile Include="Events\GoOnCreateDeviceGroupPageEvent.cs" />
+    <Compile Include="Events\GoOnExpensesPageEvent .cs" />
+    <Compile Include="Events\GoOnOneDeviceHistoryPageEvent.cs" />
+    <Compile Include="Events\GoOnDeviceHistoryPageEvent.cs" />
+    <Compile Include="Events\GoOnDeviceGroupHistoryPageEvent.cs" />
+    <Compile Include="Events\GoOnDeviceDispatcherPageEvent.cs" />
+    <Compile Include="Events\GoOnDispatcherPageEvent.cs" />
+    <Compile Include="Events\ReloadEvent.cs" />
+    <Compile Include="Events\SelectDeviceGroupModelEvent.cs" />
+    <Compile Include="Events\SelectDeviceModelEvent.cs" />
+    <Compile Include="Events\UpdateTokenEvent.cs" />
+    <Compile Include="Events\UserCompliteEvent.cs" />
+    <Compile Include="Models\DeviceModelViewing.cs" />
+    <Compile Include="Models\DeviceGroupModelViewing.cs" />
+    <Compile Include="Services\DeviceModelViewingFilter.cs" />
+    <Compile Include="Services\DeviceGroupModelViewingFilter.cs" />
+    <Compile Include="Services\DeviceModelViewingSorter.cs" />
+    <Compile Include="Services\DeviceGroupModelViewingSorter.cs" />
+    <Compile Include="ViewModels\AuthorizationPageViewModel.cs" />
+    <Compile Include="ViewModels\CreateDeviceGroupPageViewModel.cs" />
+    <Compile Include="ViewModels\DeviceDispatcherPageViewModel.cs" />
+    <Compile Include="ViewModels\DeviceGroupHistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\DeviceHistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\DevicePageViewModel.cs" />
+    <Compile Include="ViewModels\DispatcherPageViewModel.cs" />
+    <Compile Include="ViewModels\ExpensesPageViewModel.cs" />
+    <Compile Include="ViewModels\OneDeviceHistoryPageViewModel.cs" />
     <Compile Include="ViewModels\SAUEPWindowViewModel.cs" />
+    <Compile Include="Views\AuthorizationPage.xaml.cs">
+      <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateDeviceGroupPage.xaml.cs">
+      <DependentUpon>CreateDeviceGroupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceDispatcherPage.xaml.cs">
+      <DependentUpon>DeviceDispatcherPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceGroupHistoryPage.xaml.cs">
+      <DependentUpon>DeviceGroupHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceHistoryPage.xaml.cs">
+      <DependentUpon>DeviceHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DevicePage.xaml.cs">
+      <DependentUpon>DevicePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DispatcherPage.xaml.cs">
+      <DependentUpon>DispatcherPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExpensesPage.xaml.cs">
+      <DependentUpon>ExpensesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OneDeviceHistoryPage.xaml.cs">
+      <DependentUpon>OneDeviceHistoryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SAUEPWindow.xaml.cs">
       <DependentUpon>SAUEPWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\UpdateDeviceGroupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateDevicePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdateUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -153,6 +345,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\SAUEP.Core.csproj">
