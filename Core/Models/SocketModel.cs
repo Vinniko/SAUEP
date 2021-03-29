@@ -10,20 +10,9 @@ namespace SAUEP.Core.Models
 
         public SocketModel()
         {
-            ListenSocket = new TcpListener(IPAddress.Parse(_ipAddress), _listenPort);
-            ListenSocket.Start();
+            ListenSocket = new TcpClient(_ipAddress, _listenPort);
         }
 
-        #endregion
-
-
-
-        #region Main Logic
-
-        public TcpClient GetListenSocket()
-        {
-            return ListenSocket.AcceptTcpClient();
-        }
         #endregion
 
 
@@ -33,7 +22,7 @@ namespace SAUEP.Core.Models
         ~SocketModel()
         {
             if (ListenSocket != null)
-                ListenSocket.Stop();
+                ListenSocket.Close();
         }
 
         #endregion
@@ -44,7 +33,7 @@ namespace SAUEP.Core.Models
 
         private const int _listenPort = 8003;
         private string _ipAddress = "127.0.0.1";
-        public TcpListener ListenSocket { get; private set; }
+        public TcpClient ListenSocket { get; private set; }
 
         #endregion
     }
