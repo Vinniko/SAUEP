@@ -18,7 +18,7 @@ namespace SAUEP.Core.Services
 
         #region Main Logic
 
-        public Result Secure(Action action)
+        public Result Secure(Action action, ref Exception ex)
         {
             Result result = null;
 
@@ -33,11 +33,12 @@ namespace SAUEP.Core.Services
                 string logText = exception.Message;
                 _logger.Logg(logText);
                 result = Result.Failed(exception);
+                ex = exception;
             }
 
             return result;
         }
-        public Result<T> Secure<T>(Func<T> func)
+        public Result<T> Secure<T>(Func<T> func, ref Exception ex)
         {
             Result<T> result = null;
 
@@ -51,6 +52,7 @@ namespace SAUEP.Core.Services
                 string logText = exception.Message;
                 _logger.Logg(logText);
                 result = Result<T>.Failed(exception);
+                ex = exception;
             }
 
             return result;
