@@ -6,7 +6,7 @@ namespace SAUEP.DeviceClient.Models
     {
         #region Constructors
 
-        public DeviceModel(int id, string deviceGroup, string serial, string title, string ip, string port, bool status, double maxPower, double minPower, double maxElecticityConsumption, double minElecticityConsumption)
+        public DeviceModel(int id, string deviceGroup, string serial, string title, string ip, string port, bool status, double maxPower, double minPower)
         {
             Id = id;
             DeviceGroup = deviceGroup;
@@ -17,8 +17,6 @@ namespace SAUEP.DeviceClient.Models
             Status = status;
             MaxPower = maxPower;
             MinPower = minPower;
-            MaxElecticityConsumption = maxElecticityConsumption;
-            MinElecticityConsumption = minElecticityConsumption;
         }
 
         #endregion
@@ -36,8 +34,6 @@ namespace SAUEP.DeviceClient.Models
         public bool Status { get; set; }
         public double MaxPower { get; set; }
         public double MinPower { get; set; }
-        public double MaxElecticityConsumption { get; set; }
-        public double MinElecticityConsumption { get; set; }
 
         #endregion
     }

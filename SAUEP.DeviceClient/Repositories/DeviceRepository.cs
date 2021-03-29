@@ -25,10 +25,10 @@ namespace SAUEP.DeviceClient.Repositories
 
         public void Set<T>(T data)
         {
-            string query = String.Format("INSERT INTO Devices(devicegroupid, serial, title, ip, port, status, maxpower, minpower, maxelecticityconsumption, minelecticityconsumption) " +
-                "VALUES((SELECT Id FROM devicegroup WHERE title = '{0}'), '{1}', '{2}', '{3}', '{4}', {5}, {6}, {7}, {8}, {9}) ON CONFLICT DO NOTHING;",
+            string query = String.Format("INSERT INTO Devices(devicegroupid, serial, title, ip, port, status, maxpower, minpower) " +
+                "VALUES((SELECT Id FROM devicegroup WHERE title = '{0}'), '{1}', '{2}', '{3}', '{4}', {5}, {6}, {7}) ON CONFLICT DO NOTHING;",
                 (data as DeviceModel).DeviceGroup, (data as DeviceModel).Status, (data as DeviceModel).Title, (data as DeviceModel).Ip, (data as DeviceModel).Port, (data as DeviceModel).Status,
-                (data as DeviceModel).MaxPower, (data as DeviceModel).MinPower, (data as DeviceModel).MaxElecticityConsumption, (data as DeviceModel).MinElecticityConsumption);
+                (data as DeviceModel).MaxPower, (data as DeviceModel).MinPower);
             using (var command = new NpgsqlCommand(query, (_connection as DataBaseConnection).Connection))
             {
                 command.ExecuteNonQuery();
@@ -38,8 +38,8 @@ namespace SAUEP.DeviceClient.Repositories
         public ICollection<T> Get<T>()
         {
             ICollection<T> devices = new List<T>();
-            string allFromDevicesQuery = "SELECT Devices.Id, DeviceGroup.Title, Devices.Serial, Devices.Title, Devices.Ip, Devices.Port, Devices.Status, Devices.MaxPower, Devices.MinPower," +
-                "Devices.maxelecticityconsumption, Devices.minelecticityconsumption FROM Devices INNER JOIN DeviceGroup On Devices.devicegroupid = devicegroup.Id;";
+            string allFromDevicesQuery = "SELECT Devices.Id, DeviceGroup.Title, Devices.Serial, Devices.Title, Devices.Ip, Devices.Port, Devices.Status, Devices.MaxPower, Devices.MinPower" +
+                " FROM Devices INNER JOIN DeviceGroup On Devices.devicegroupid = devicegroup.Id;";
             using (var command = new NpgsqlCommand(allFromDevicesQuery, (_connection as DataBaseConnection).Connection))
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
@@ -47,7 +47,7 @@ namespace SAUEP.DeviceClient.Repositories
                     while (reader.Read())
                     {
                         var device = new DeviceModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), 
-                            reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8), reader.GetDouble(9), reader.GetDouble(10));
+                            reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8));
                         (devices as List<DeviceModel>).Add(device);
                     }
                     return devices;
@@ -58,7 +58,7 @@ namespace SAUEP.DeviceClient.Repositories
         public IModel GetById(int id)
         {
             string getDeviceQuery = String.Format("SELECT Devices.Id, DeviceGroup.Title, Devices.Serial, Devices.Title, Devices.Ip, Devices.Port, Devices.Status, Devices.MaxPower, " +
-                "Devices.MinPower, Devices.maxelecticityconsumption, Devices.minelecticityconsumption FROM Devices INNER JOIN DeviceGroup On Devices.devicegroupid = devicegroup.Id " +
+                "Devices.MinPower FROM Devices INNER JOIN DeviceGroup On Devices.devicegroupid = devicegroup.Id " +
                 "WHERE Devices.Id = {0};", id);
             using (var command = new NpgsqlCommand(getDeviceQuery, (_connection as DataBaseConnection).Connection))
             {
@@ -67,7 +67,7 @@ namespace SAUEP.DeviceClient.Repositories
                     if (reader.Read())
                     {
                         var device = new DeviceModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5),
-                            reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8), reader.GetDouble(9), reader.GetDouble(10));
+                            reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8));
                         return device;
                     }
                     else throw new DataBaseNullSelectException(String.Format("В таблице Devices не существует записи с Id = {0}", id));
@@ -78,9 +78,9 @@ namespace SAUEP.DeviceClient.Repositories
         public void Update<T>(int id, T data)
         {
             string query = String.Format("UPDATE Devices SET devicegroupid = (SELECT Id FROM devicegroup WHERE Title = '{0}'), serial = '{1}', title = '{2}', ip = '{3}', port = '{4}', " +
-                "status = {5}, maxpower = {6}, minpower = {7}, maxelecticityconsumption = {8}, minelecticityconsumption = {9};",
+                "status = {5}, maxpower = {6}, minpower = {7};",
                 (data as DeviceModel).DeviceGroup, (data as DeviceModel).Status, (data as DeviceModel).Title, (data as DeviceModel).Ip, (data as DeviceModel).Port, (data as DeviceModel).Status,
-                (data as DeviceModel).MaxPower, (data as DeviceModel).MinPower, (data as DeviceModel).MaxElecticityConsumption, (data as DeviceModel).MinElecticityConsumption);
+                (data as DeviceModel).MaxPower, (data as DeviceModel).MinPower);
             using (var command = new NpgsqlCommand(query, (_connection as DataBaseConnection).Connection))
             {
                 command.ExecuteNonQuery();
