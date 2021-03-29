@@ -11,11 +11,14 @@ namespace SAUEP.ApiServer.Services
 
         public void Logg(string text)
         {
-            if (!Directory.Exists(_loggDirectory))
-                Directory.CreateDirectory(_loggDirectory);
-            using (var streamWriter = File.AppendText(_loggDirectory + _loggFile))
+            lock (_lock)
             {
-                streamWriter.WriteLine(text + " : " + DateTime.Now.ToString());
+                if (!Directory.Exists(_loggDirectory))
+                    Directory.CreateDirectory(_loggDirectory);
+                using (var streamWriter = File.AppendText(_loggDirectory + _loggFile))
+                {
+                    streamWriter.WriteLine(text + " : " + DateTime.Now.ToString());
+                }
             }
         }
 
@@ -27,6 +30,7 @@ namespace SAUEP.ApiServer.Services
 
         private string _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
         private string _loggFile = "\\log.txt";
+        private object _lock = new object();
 
         #endregion
     }
