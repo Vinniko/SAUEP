@@ -41,6 +41,7 @@ namespace SAUEP.ApiServer
             services.AddSingleton<DeviceGroupRepository, DeviceGroupRepository>();
             services.AddSingleton<DeviceRepository, DeviceRepository>();
             services.AddSingleton<PollRepository, PollRepository>();
+            services.AddSingleton<RoleRepository, RoleRepository>();
         }
 
         public void Configure(IApplicationBuilder app)
