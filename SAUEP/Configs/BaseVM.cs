@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Visual_Novel_Engine.Config
+namespace SAUEP.WPF.Configs
 {
     [Serializable]
     public class BaseVM : INotifyPropertyChanged

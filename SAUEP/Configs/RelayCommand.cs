@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Visual_Novel_Engine.Config
+namespace SAUEP.WPF.Configs
 {
     public class RelayCommand : ICommand
     {
