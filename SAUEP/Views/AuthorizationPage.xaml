@@ -1,0 +1,39 @@
+﻿<Page x:Class="SAUEP.WPF.Views.AuthorizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SAUEP.WPF.Views"
+      mc:Ignorable="d" 
+      xmlns:prism="http://prismlibrary.com/"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      Title="AuthorizationPage" >
+
+    <Grid Background="White">
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="384*" MinWidth="384" />
+                    <ColumnDefinition Width="384*" MinWidth="384"/>
+                </Grid.ColumnDefinitions>
+                <Label  Content="А В Т О Р И З Ц И Я" Grid.ColumnSpan="2" Margin="390,25,378,35" Grid.RowSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label  Content="Логин" Grid.ColumnSpan="2" Margin="390,24.4,378,12" Grid.Row="1"/>
+                <TextBox Grid.ColumnSpan="2" Margin="390,0,378,27" Grid.Row="2" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" MaxLength="{Binding MaxLoginLength}" ToolTip="{Binding LoginToolTip}"/>
+                <Label  Content="Пароль" Grid.ColumnSpan="2" Margin="390,4.2,378,28.8" Grid.Row="3"/>
+                <TextBox Grid.ColumnSpan="2" Margin="390,0.2,378,27.8" Grid.Row="4" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" MaxLength="{Binding MaxPasswordLength}" ToolTip="{Binding PasswordToolTip}"/>
+                <Label  Grid.Column="1" Margin="5,39.2,-5,3" Grid.Row="4" Content="{Binding Error}"/>
+                <Button  Padding="5" Content="OK" Grid.Row="5" Grid.RowSpan="2" Margin="435,2.2,394.8,59.8" Command="{Binding Authorize}" Grid.ColumnSpan="2"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

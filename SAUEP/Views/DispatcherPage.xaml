@@ -1,0 +1,82 @@
+﻿<Page x:Class="SAUEP.WPF.Views.DispatcherPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:local="clr-namespace:SAUEP.WPF.Views"
+      mc:Ignorable="d"
+      xmlns:prism="http://prismlibrary.com/"
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      Title="DispatcherPage">
+
+    <Grid Background="White">
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                    <RowDefinition Height="60*" MinHeight="60"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="384*" MinWidth="384" />
+                    <ColumnDefinition Width="384*" MinWidth="384"/>
+                </Grid.ColumnDefinitions>
+
+                <Label  Content="Д И С П Е Т Ч Е Р   У С Т Р О Й С Т В" Grid.ColumnSpan="2" Margin="390,25,378,35" Grid.RowSpan="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <ListView x:Name="listView" ItemsSource="{Binding DeviceGroupModelViewings, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" Margin="23,69,9.8,9.6" Grid.RowSpan="6" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="True" MaxHeight="300" SelectedItem="{Binding SelectedDeviceGroupModel}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="200" DisplayMemberBinding="{Binding Title}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Группа устройств" Command="{Binding Sort}" CommandParameter="Title">Группа устройств</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200" DisplayMemberBinding="{Binding Power}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Мощность (кВт)" Command="{Binding Sort}" CommandParameter="Power">Мощность (кВт)</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200" DisplayMemberBinding="{Binding PowerPercent}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Мощность (%)" Command="{Binding Sort}" CommandParameter="PowerPercent">Мощность (%)</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="250" DisplayMemberBinding="{Binding ElectricityConsumption}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Потребленная электроэнергия (кВт/ч)" Command="{Binding Sort}" CommandParameter="ElectricityConsumption">Потребленная электроэнергия (кВт/ч)</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Сбросить" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="479.4,0.4,9.8,20.6" Grid.Row="1" VerticalAlignment="Stretch" Command="{Binding Reset}" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Content="Динамизация" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="0" HorizontalAlignment="Stretch"  Grid.Row="0" VerticalAlignment="Stretch" Margin="23,70,0,0" IsChecked="{Binding DinamizationFlag, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="226,46.4,0,0" Grid.Row="1" Grid.RowSpan="2" Text="{Binding PowerUpFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="104" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="-0.041,0.826"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="20.4,46.4,0,0" Grid.Row="1"  Grid.ColumnSpan="2" Text="{Binding PowerPercentUpFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="106" Grid.Column="1" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="126.4,46.4,0,0" Grid.Row="1"  Grid.ColumnSpan="2" Text="{Binding PowerPercentLowFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="94" Grid.Column="1" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="220.4,46.4,0,0" Grid.Row="1" Grid.RowSpan="2"  Text="{Binding ElectricityConsumptionUpFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="131" Grid.Column="1" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="23,46.4,0,0" Grid.Row="1" Grid.RowSpan="2" Text="{Binding TitleFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="203" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="330,46.4,0,0" Grid.Row="1" Grid.RowSpan="2" Text="{Binding PowerLowFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="96" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="-0.041,0.826" Grid.ColumnSpan="2"/>
+                <Button Content="Применить" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Column="1" Margin="364.4,0.4,0,20.6" Grid.Row="1" VerticalAlignment="Stretch" Command="{Binding Filter}" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="97"/>
+                <TextBox HorizontalAlignment="Left" Height="23" Margin="347.4,46.4,0,0" Grid.Row="1" Grid.RowSpan="2"  Text="{Binding ElectricityConsumptionLowFilter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="131" Grid.Column="1" IsEnabled="{Binding FilterEnableFlag, UpdateSourceTrigger=PropertyChanged}"/>
+                <lvc:CartesianChart Series="{Binding LineChartSeries}" Grid.ColumnSpan="2" Margin="23,50.4,483.8,-105.4" Grid.Row="6" Grid.RowSpan="2" LegendLocation="Bottom"  >
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Power"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+                <lvc:PieChart  Series="{Binding PieChartSeries}" LegendLocation="Right" Hoverable="False" Margin="82.6,0.4,76.8,-68.4" Grid.Row="7" Grid.Column="1">
+                    <lvc:PieChart.AxisX>
+                        <lvc:Axis Title="Average Power"></lvc:Axis>
+                    </lvc:PieChart.AxisX>
+                </lvc:PieChart>
+                <Button Content="Обновить" Grid.Column="1" HorizontalAlignment="Left" Margin="511.6,10.4,0,-68.4" Grid.Row="7" VerticalAlignment="Top" Width="64" Height="118" Background="{x:Null}" Command="{Binding Update}"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
