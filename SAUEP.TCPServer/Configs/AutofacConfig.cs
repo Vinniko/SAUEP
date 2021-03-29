@@ -21,6 +21,9 @@ namespace SAUEP.TCPServer.Configs
             builder.RegisterType<SocketListener>().As<IListener>().SingleInstance();
             builder.RegisterType<SocketWriter>().As<SocketWriter>().SingleInstance();
             builder.RegisterType<FileReader>().As<IReader>().SingleInstance();
+            builder.RegisterType<UserRepository>().AsSelf().SingleInstance();
+            builder.RegisterType<DeviceRepository>().AsSelf().SingleInstance();
+            builder.RegisterType<EmailSender>().As<ISender>().SingleInstance();
 
             return builder.Build();
         }
