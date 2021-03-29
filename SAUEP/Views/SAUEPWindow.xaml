@@ -3,12 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:SAUEP.WPF.Views"
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:lib="clr-namespace:SAUEP.Core.Models;assembly=Core"
+        xmlns:vm="clr-namespace:SAUEP.WPF.ViewModels"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Test}" Height="450" Width="800">
+        Title="SAUEP" MinHeight="720" MinWidth="1280">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Closing}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*" MinHeight="25"/>
+            <RowDefinition Height="600*" MinHeight="400"/>
+            <RowDefinition Height="30*" MinHeight="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*" MinWidth="100" />
+            <ColumnDefinition Width="1080*" MinWidth="1080"/>
+        </Grid.ColumnDefinitions>
+        <ToolBar Grid.Row="0" Grid.Column="0" Grid.IsSharedSizeScope="True"  MinHeight="30" VerticalAlignment="Top" MinWidth="1280" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Height="25" Margin="-11,0,-121,0" Grid.RowSpan="2" >
+            <Menu Height="25" VerticalAlignment="Top">
+                <MenuItem Header="Система" Margin="30 0 0 0" IsEnabled="{Binding UserFlag}">
+                    <MenuItem Header="Пользователи" Visibility="{Binding ModeratorVisibility, UpdateSourceTrigger=PropertyChanged}" Command="{Binding GoOnUsersPage}"/>
+                </MenuItem>
+                <MenuItem Header="Добавить..." Margin="0" IsEnabled="{Binding UserFlag}">
+                    <MenuItem Header="Группу устройств" Visibility="{Binding ModeratorVisibility, UpdateSourceTrigger=PropertyChanged}" Command="{Binding GoOnCreateDeviceGroupPage}"/>
+                    <MenuItem Header="Устройство" Visibility="{Binding ModeratorVisibility, UpdateSourceTrigger=PropertyChanged}" Command="{Binding GoOnCreateDevicePage}"/>
+                    <MenuItem Header="Пользователя" Visibility="{Binding AdminVisibility, UpdateSourceTrigger=PropertyChanged}" Command="{Binding GoOnCreateUserPage}"/>
+                    <MenuItem Header="Отчёт" Visibility="{Binding UserVisibility, UpdateSourceTrigger=PropertyChanged}" Command="{Binding GoOnCreateDevicePollPage}"/>
+                </MenuItem>
+                <MenuItem Header="Перейти к истории" Margin="0" IsEnabled="{Binding UserFlag}" Command="{Binding GoOnHistoryPage}">
+                </MenuItem>
+                <MenuItem Header="График затрат" Margin="0" IsEnabled="{Binding UserFlag}" Command="{Binding GoOnExpensesPage}">
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+        <StatusBar Grid.Row="2" Grid.Column="0" Grid.IsSharedSizeScope="True" MinHeight="30"  VerticalAlignment="Top" MinWidth="1280"  HorizontalAlignment="Stretch"  Grid.ColumnSpan="2" Margin="0,0.2,-100,-5.4" FlowDirection="RightToLeft">
+            <Label  HorizontalAlignment="Right" Foreground="#FFE84848" Content="{Binding Error, UpdateSourceTrigger=PropertyChanged}" Margin="300,0,100,0"/>
+            <Label  HorizontalAlignment="Left" Foreground="Black" Content="{Binding Update, UpdateSourceTrigger=PropertyChanged}" Margin="600,0,0,0"/>
+        </StatusBar>
+        <TreeView Grid.Row="1" Grid.Column="0" Grid.IsSharedSizeScope="True" MinHeight="400" VerticalAlignment="Stretch" MinWidth="100" HorizontalAlignment="Stretch" Margin="0,0.2,0,4.8" ItemsSource="{Binding DeviceGroupModels}" SelectedValuePath="{Binding SelectedDeviceGroupModel}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type lib:DeviceGroupModel}" ItemsSource="{Binding DeviceModels}" >
+                    <TextBlock Text="{Binding Title}" />
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate DataType="{x:Type lib:DeviceModel}">
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <Frame  Grid.Row="1" Grid.Column="1" Grid.IsSharedSizeScope="True" MinHeight="456" VerticalAlignment="Stretch"  MinWidth="662" HorizontalAlignment="Stretch" Margin="0,0.2,0,0"  NavigationUIVisibility="Hidden" Source="{Binding PagePath, UpdateSourceTrigger=PropertyChanged}" />
         
+
     </Grid>
 </Window>
