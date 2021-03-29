@@ -24,8 +24,13 @@ namespace SAUEP.TCPServer
                 var socket = guardian.Secure(() => 
                     new SocketModel()).Value;
                 (listener as SocketListener).Socket = socket;
+                var writer = scope.Resolve<SocketWriter>();
+                writer.Socket = socket;
+                var sender = scope.Resolve<ISender>();
                 guardian.Secure(() => 
-                    (listener as SocketListener).AddObserver(scope.Resolve<SocketWriter>()));
+                    (listener as SocketListener).AddObserver(writer));
+                //guardian.Secure(() =>
+                //    (listener as SocketListener).AddObserver(sender as EmailSender));
                 var listen = guardian.Secure(() => 
                     new Thread(new ThreadStart(listener.Listen))).Value;
                 guardian.Secure(() => 
