@@ -112,7 +112,7 @@ namespace SAUEP.Core.Repositories
             try
             {
                 WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/user/updateUser?id={id}&login={(data as UserModel).Login}" +
-                    $"&password={(data as UserModel).Password}&email={(data as UserModel).Email}");
+                    $"&password={(data as UserModel).Password}&email={(data as UserModel).Email}&role={(data as UserModel).Role}");
                 request.Method = "PUT";
                 request.ContentLength = 0;
                 request.Headers.Add("Authorization", "Bearer " + token);
