@@ -55,6 +55,26 @@ namespace SAUEP.ApiServer.Repositories
             }
         }
 
+        public ICollection<T> Get<T>(int qty, DateTime dateTime, string serial)
+        {
+            ICollection<T> polls = new List<T>();
+            string allFromPollsQuery = $"SELECT Polls.Id, Devices.Serial, Devices.Ip, Polls.Power, Polls.ElectricityConsumption, Polls.Date FROM Polls " +
+                $"INNER JOIN Devices On Devices.Id = Polls.DeviceId WHERE date < '{dateTime.ToString("u")}' and serial = '{serial}' ORDER BY id DESC LIMIT {qty};";
+            using (var command = new NpgsqlCommand(allFromPollsQuery, (_connection as DataBaseConnection).Connection))
+            {
+                using (NpgsqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var poll = new PollModel(reader.GetString(1), reader.GetString(2),
+                            reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5), reader.GetInt32(0));
+                        (polls as List<PollModel>).Add(poll);
+                    }
+                    return polls;
+                }
+            }
+        }
+
         public IModel GetById(int id)
         {
             string getPollQuery = String.Format("SELECT Polls.Id, Devices.Serial, Devices.Ip, Polls.Power, Polls.ElectricityConsumption, Polls.Date FROM Polls " +
