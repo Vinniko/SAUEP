@@ -14,7 +14,7 @@ namespace SAUEP.TCPServer.Services
     {
         #region Constructors
 
-        public SocketWriter(IParser parser, ConsoleWriter writer, ILogger logger)
+        public SocketWriter(IParser parser, IWriter writer, ILogger logger)
         {
             _parser = parser;
             _consoleWriter = writer;
@@ -29,16 +29,35 @@ namespace SAUEP.TCPServer.Services
 
         public void Write<T>(T data)
         {
-            using (var client = Socket.GetSaySocket())
+            if (Socket.SaySocket.Pending())
             {
-                using (var stream = client.GetStream())
+                using (var client = Socket.GetSaySocket())
                 {
-                    using (var writer = new BinaryWriter(stream))
+                    using (var stream = client.GetStream())
                     {
-                        writer.Write(_parser.Depars<PollModel>(data as PollModel));
-                        writer.Flush();
-                        _consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Serial);
-                        _logger.Logg("Отправлено с сервера: " + (data as PollModel).Serial);
+                        //byte[] bytes = Encoding.Unicode.GetBytes(_parser.Depars(data as PollModel));
+                        //byte[] count = BitConverter.GetBytes(bytes.Length);
+                        //stream.Write(count, 0, count.Length);
+                        //stream.Flush();
+                        //stream.Write(bytes, 0, bytes.Length);
+                        //stream.Flush();
+                        //_consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Serial);
+                        //_logger.Logg("Отправлено с сервера: " + (data as PollModel).Serial);
+                        using (var writer = new BinaryWriter(stream))
+                        {
+                            try
+                            {
+                                writer.Write(_parser.Depars<PollModel>(data as PollModel));
+                                writer.Flush();
+                                _consoleWriter.Write("Отправлено с сервера: " + (data as PollModel).Serial);
+                                _logger.Logg("Отправлено с сервера: " + (data as PollModel).Serial);
+                            }
+                            catch(IOException ex)
+                            {
+                                _logger.Logg("Потерянна связь с клиентом " + ex.Message);
+                            }
+                           
+                        }
                     }
                 }
             }

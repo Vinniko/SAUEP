@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using SAUEP.TCPServer.Interfaces;
 
@@ -13,6 +14,7 @@ namespace SAUEP.TCPServer.Models
             ListenSocket = new TcpListener(IPAddress.Parse(_ipAddress), _listenPort);
             SaySocket = new TcpListener(IPAddress.Parse(_ipAddress), _sayPort);
             ListenSocket.Start();
+            SaySocket.Start();
         }
 
         #endregion
@@ -27,8 +29,9 @@ namespace SAUEP.TCPServer.Models
         }
         public TcpClient GetSaySocket()
         {
-            return SaySocket.AcceptTcpClient();
+                return SaySocket.AcceptTcpClient();
         }
+        
 
         #endregion
 

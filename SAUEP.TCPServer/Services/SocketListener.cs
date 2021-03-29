@@ -36,8 +36,8 @@ namespace SAUEP.TCPServer.Services
                         using (var reader = new BinaryReader(stream))
                         {
                             _pollModel = _jsonParser.Pars<PollModel>(reader.ReadString());
-                            _consoleWriter.Write("Получено: " + _pollModel.Id);
-                            _logger.Logg("Получено: " + _pollModel.Id);
+                            _consoleWriter.Write("Получен отчёт с устройства: " + _pollModel.Serial);
+                            _logger.Logg("Получен отчёт с устройства: " + _pollModel.Serial);
                             _repository.Set(_pollModel);
                             _consoleWriter.Write("Записано в базу данных: " + _pollModel.Serial);
                             _logger.Logg("Записано в базу данных: " + _pollModel.Serial);
