@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SAUEP.DeviceClient.Interfaces;
 using SAUEP.DeviceClient.Models;
+using SAUEP.DeviceClient.Repositories;
 
 namespace SAUEP.DeviceClient.Services
 {
@@ -9,10 +10,10 @@ namespace SAUEP.DeviceClient.Services
     {
         #region Constructors
 
-        public ResultGenerator()
+        public ResultGenerator(PollRepository pollRepository)
         {
             _observers = new List<IObserver>();
-            
+            _pollRepository = pollRepository;
         }
 
         #endregion
@@ -25,8 +26,14 @@ namespace SAUEP.DeviceClient.Services
         public void Generate(object device)
         {
             Random random = new Random();
+            double electricityConsumption = 0;
+            var poll = _pollRepository.Get<PollModel>(1, DateTime.Now, (device as DeviceModel).Serial) as List<PollModel>;
+            if (poll.Count > 0)
+                electricityConsumption = poll[0].ElectricityConsumption;
+            else
+                electricityConsumption = 0;
             NotifyObservers(new PollModel(0, (device as DeviceModel).Serial, (device as DeviceModel).Ip, random.Next((int)(device as DeviceModel).MinPower - 2, (int)(device as DeviceModel).MaxPower + 2),
-                random.Next((int)(device as DeviceModel).MinElecticityConsumption - 2, (int)(device as DeviceModel).MaxElecticityConsumption + 2), DateTime.Now));
+                electricityConsumption + random.Next(300), DateTime.Now));
         }
         public void AddObserver(IObserver observer)
         {
@@ -53,6 +60,7 @@ namespace SAUEP.DeviceClient.Services
         #region Fields
 
         private ICollection<IObserver> _observers;
+        private PollRepository _pollRepository;
 
         #endregion
     }
