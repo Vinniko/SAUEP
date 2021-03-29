@@ -6,7 +6,7 @@ namespace SAUEP.ApiServer.Models
     {
         #region Constructors
 
-        public DeviceModel(string deviceGroup, string serial, string title, string ip, string port, bool status, double maxPower, double minPower, double maxElecticityConsumption, double minElecticityConsumption, int id = 0)
+        public DeviceModel(string deviceGroup, string serial, string title, string ip, string port, bool status, double maxPower, double minPower, int id = 0)
         {
             Id = id;
             DeviceGroup = deviceGroup;
@@ -17,8 +17,6 @@ namespace SAUEP.ApiServer.Models
             Status = status;
             MaxPower = maxPower;
             MinPower = minPower;
-            MaxElecticityConsumption = maxElecticityConsumption;
-            MinElecticityConsumption = minElecticityConsumption;
         }
 
         #endregion
@@ -36,8 +34,6 @@ namespace SAUEP.ApiServer.Models
         public bool Status { get; set; }
         public double MaxPower { get; set; }
         public double MinPower { get; set; }
-        public double MaxElecticityConsumption { get; set; }
-        public double MinElecticityConsumption { get; set; }
 
         #endregion
     }
