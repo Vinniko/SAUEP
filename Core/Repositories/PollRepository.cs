@@ -6,6 +6,7 @@ using SAUEP.Core.Interfaces;
 using SAUEP.Core.Models;
 using SAUEP.Core.Exceptions;
 using SAUEP.Core.Connections;
+using System;
 
 namespace SAUEP.Core.Repositories
 {
@@ -22,7 +23,7 @@ namespace SAUEP.Core.Repositories
         #endregion
 
 
-
+        
         #region Main Logic
 
         public async Task Set<T>(T data, string token)
@@ -30,7 +31,7 @@ namespace SAUEP.Core.Repositories
             try
             {
                 WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/poll/setPoll?serial={(data as PollModel).Serial}&ip={(data as PollModel).Ip}" +
-                    $"&power={(data as PollModel).Power}&electricityConsumption={(data as PollModel).ElectricityConsumption}&date={(data as PollModel).Date}");
+                    $"&power={(data as PollModel).Power}&electricityConsumption={(data as PollModel).ElectricityConsumption}&date={(data as PollModel).Date.ToString()}");
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = 0;
@@ -51,6 +52,33 @@ namespace SAUEP.Core.Repositories
             try
             {
                 WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + "api/poll/getPolls");
+                request.Method = "GET";
+                request.Headers.Add("Authorization", "Bearer " + token);
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            return _jsonParser.Pars<ICollection<T>>(reader.ReadToEnd());
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                HttpWebResponse httpResponse = (HttpWebResponse)ex.Response;
+                if ((int)httpResponse.StatusCode == 401)
+                    throw new TokenLifetimeException("Время жизни токена авторизации истекло");
+                else throw new GetPollsException("Неизвестная ошибка получения списка отчётов, с кодом: " + ((int)httpResponse.StatusCode).ToString());
+            }
+        }
+
+        public async Task<ICollection<T>> Get<T>(int qty, DateTime dateTime, string serial, string token)
+        {
+            try
+            {
+                WebRequest request = WebRequest.Create((_connection as ServerConnection).ConnectionUrl + $"api/poll/getLastPolls?qty={qty}&dateTime={dateTime.ToString("u")}&serial={serial}");
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "Bearer " + token);
                 using (WebResponse response = await request.GetResponseAsync())
