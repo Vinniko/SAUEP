@@ -23,18 +23,26 @@ namespace SAUEP.DeviceClient.Services
 
         public void Write<T>(T data)
         {
-            using (var client = Socket.SaySocket)
+            if (Socket.SaySocket != null)
             {
-                using (var stream = client.GetStream())
+                using (var client = Socket.SaySocket)
                 {
-                    using (var writer = new BinaryWriter(stream))
+                    using (var stream = client.GetStream())
                     {
-                        writer.Write(_parser.Depars<PollModel>(data as PollModel));
-                        writer.Flush();
-                        _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
-                        _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
+                        using (var writer = new BinaryWriter(stream))
+                        {
+                            writer.Write(_parser.Depars<PollModel>(data as PollModel));
+                            writer.Flush();
+                            _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
+                            _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
+                        }
                     }
                 }
+            }
+            else
+            {
+                _consoleWriter.Write("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
+                _logger.Logg("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
             }
         }
 
