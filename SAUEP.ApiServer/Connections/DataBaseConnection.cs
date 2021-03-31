@@ -12,6 +12,17 @@ namespace SAUEP.ApiServer.Connections
         {
             _reader = reader;
             _parser = jsonParser;
+            ConnectionEnable();
+        }
+
+        #endregion
+
+
+
+        #region Main Logic
+
+        private void ConnectionEnable()
+        {
             var connection = _parser.Pars<ConnectionModel>(_reader.Read(_connectionFile));
             Connection = new NpgsqlConnection(string.Format(_connection, (connection as ConnectionModel).Host, (connection as ConnectionModel).Username, (connection as ConnectionModel).Password, (connection as ConnectionModel).Database));
             Connection.Open();
