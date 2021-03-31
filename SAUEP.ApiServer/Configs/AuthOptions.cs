@@ -6,10 +6,10 @@ namespace SAUEP.ApiServer.Configs
 {
     public sealed class AuthOptions
     {
-        public const string ISSUER = "SauepApiServer"; // издатель токена
-        public const string AUDIENCE = "SauepClient"; // потребитель токена
-        const string KEY = "RyeUSwd97uPRghrd";   // ключ для шифрации
-        public const int LIFETIME = 1; // время жизни токена - 1 минута
+        public const string ISSUER = "SauepApiServer"; 
+        public const string AUDIENCE = "SauepClient"; 
+        const string KEY = "RyeUSwd97uPRghrd";   
+        public const int LIFETIME = 30; 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
