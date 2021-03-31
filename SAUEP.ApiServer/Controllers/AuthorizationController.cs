@@ -13,11 +13,10 @@ namespace SAUEP.ApiServer.Controllers
     {
         #region Constructors
 
-        public AuthorizationController(IGuardian guardian, ILogger logger, IAuthorization authorization, IParser jsonParser)
+        public AuthorizationController(IGuardian guardian, ILogger logger, IAuthorization authorization)
         {
             _guardian = guardian;
             _authorization = authorization;
-            _jsonParser = jsonParser;
             _logger = logger;
         }
 
@@ -63,7 +62,6 @@ namespace SAUEP.ApiServer.Controllers
 
         IGuardian _guardian;
         IAuthorization _authorization;
-        IParser _jsonParser;
         ILogger _logger;
 
         #endregion
