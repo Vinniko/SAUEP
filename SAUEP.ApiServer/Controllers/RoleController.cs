@@ -33,7 +33,7 @@ namespace SAUEP.ApiServer.Controllers
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/role/setRole?title={title}");
             var exception = _guardian.Secure(() => _roleRepository.Set(new RoleModel(title))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -60,7 +60,7 @@ namespace SAUEP.ApiServer.Controllers
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/role/updateRole?id={id}&title={title}");
             var exception = _guardian.Secure(() => _roleRepository.Update(id, new RoleModel(title, default))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -69,7 +69,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult DeleteRole(int id)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/role/deleteRole?id={id}");
-            _guardian.Secure(() => _roleRepository.Remove<RoleModel>(id));
+            var exception = _guardian.Secure(() => _roleRepository.Remove<RoleModel>(id)).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 

@@ -10,11 +10,10 @@ namespace SAUEP.ApiServer.Controllers
     {
         #region Constructors
 
-        public RegistrationController(IGuardian guardian,  ILogger logger, IRegistration registration, IParser jsonParser)
+        public RegistrationController(IGuardian guardian,  ILogger logger, IRegistration registration)
         {
             _guardian = guardian;
             _registration = registration;
-            _jsonParser = jsonParser;
             _logger = logger;
         }
 
@@ -26,7 +25,7 @@ namespace SAUEP.ApiServer.Controllers
 
         [Authorize(Roles = "Администратор")]
         [HttpPost("/reg")]
-        public IActionResult Reg(string login, string password, string email, string role = "Пользователь")
+        public IActionResult Reg(string login, string password, string email)
         {
             _logger.Logg($"Попытка регистрации аккаунта {login} с ip адресса: {Request.HttpContext.Connection.RemoteIpAddress}");
             var userModel = new UserModel(login, password, email);
@@ -38,9 +37,8 @@ namespace SAUEP.ApiServer.Controllers
             else
             {
                 _logger.Logg($"Попытка регистрации существующего {login} с ip адресса: {Request.HttpContext.Connection.RemoteIpAddress}");
-                return Problem(detail: "User exsists", statusCode: (int)BadRequest().StatusCode);
-            }
-                
+                return Problem(detail: "User exsists", statusCode: BadRequest().StatusCode);
+            }   
         }
 
         #endregion
@@ -51,7 +49,6 @@ namespace SAUEP.ApiServer.Controllers
 
         IGuardian _guardian;
         IRegistration _registration;
-        IParser _jsonParser;
         ILogger _logger;
 
         #endregion

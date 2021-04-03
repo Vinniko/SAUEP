@@ -36,7 +36,7 @@ namespace SAUEP.ApiServer.Controllers
                 $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}");
             var exception = _guardian.Secure(() => _deviceRepository.Set(new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -66,7 +66,7 @@ namespace SAUEP.ApiServer.Controllers
                 $"&ip={ip}&port={port}&status={status}&maxPower={maxPower}&minPower={minPower}");
             var exception  = _guardian.Secure(() => _deviceRepository.Update(id, new DeviceModel(deviceGroup, serial, title, ip, port, status, maxPower, minPower))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -75,7 +75,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult DeleteDevice(int id)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/device/deleteDevice?id={id}");
-            _guardian.Secure(() => _deviceRepository.Remove<DeviceModel>(id));
+            var exception = _guardian.Secure(() => _deviceRepository.Remove<DeviceModel>(id)).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 

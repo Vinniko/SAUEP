@@ -33,7 +33,7 @@ namespace SAUEP.ApiServer.Controllers
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/devicesgroup/setDeviceGroup?title={title}");
             var exception =  _guardian.Secure(() => _deviceGroupRepository.Set(new DeviceGroupModel(title))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -60,7 +60,7 @@ namespace SAUEP.ApiServer.Controllers
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/devicesgroup/updateDeviceGroup?id={id}&title={title}");
             var exception = _guardian.Secure(() => _deviceGroupRepository.Update(id, new DeviceGroupModel(title))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -69,7 +69,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult DeleteDeviceGroup(int id)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/devicesgroup/deleteDeviceGroup?id={id}");
-            _guardian.Secure(() => _deviceGroupRepository.Remove<DeviceGroupModel>(id));
+            var exception = _guardian.Secure(() => _deviceGroupRepository.Remove<DeviceGroupModel>(id)).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 

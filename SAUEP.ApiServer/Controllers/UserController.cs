@@ -49,7 +49,7 @@ namespace SAUEP.ApiServer.Controllers
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/user/updateUser?id={id}&login={login}&password={password}&email={email}&role={role}");
             var exception = _guardian.Secure(() => _userRepository.Update(id, new UserModel(login, password, email, default, role))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -58,7 +58,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult DeleteUser(int id)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/user/deleteUser?id={id}");
-            _guardian.Secure(() => _userRepository.Remove<UserModel>(id));
+            var exception = _guardian.Secure(() => _userRepository.Remove<UserModel>(id)).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 

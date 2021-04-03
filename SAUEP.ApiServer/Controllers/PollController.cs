@@ -35,7 +35,7 @@ namespace SAUEP.ApiServer.Controllers
                 $"&electricityConsumption={electricityConsumption}&date={date}");
             var exception = _guardian.Secure(() => _pollRepository.Set(new PollModel(serial, serial, power, electricityConsumption, DateTime.Parse(date)))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -71,7 +71,7 @@ namespace SAUEP.ApiServer.Controllers
                 $"&electricityConsumption={electricityConsumption}&date={date}");
             var exception = _guardian.Secure(() => _pollRepository.Update(id, new PollModel(serial, serial, power, electricityConsumption, date))).Exception;
             if (exception != null)
-                return Problem(detail: exception.Message, statusCode: (int)BadRequest().StatusCode);
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
@@ -80,7 +80,9 @@ namespace SAUEP.ApiServer.Controllers
         public IActionResult DeletePoll(int id)
         {
             _logger.Logg($"C ip адресса: {Request.HttpContext.Connection.RemoteIpAddress} был выполнен запрос: /api/poll/deletePoll?id={id}");
-            _guardian.Secure(() => _pollRepository.Remove<PollModel>(id));
+            var exception = _guardian.Secure(() => _pollRepository.Remove<PollModel>(id)).Exception;
+            if (exception != null)
+                return Problem(detail: exception.Message, statusCode: BadRequest().StatusCode);
             return Ok();
         }
 
