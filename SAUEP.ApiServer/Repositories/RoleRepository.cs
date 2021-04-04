@@ -42,10 +42,7 @@ namespace SAUEP.ApiServer.Repositories
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        var role = new RoleModel(reader.GetString(1), reader.GetInt32(0));
-                        (roles as List<RoleModel>).Add(role);
-                    }
+                        (roles as List<RoleModel>).Add(new RoleModel(reader.GetString(1), reader.GetInt32(0)));
                     return roles;
                 }
             }
@@ -58,11 +55,7 @@ namespace SAUEP.ApiServer.Repositories
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
-                    {
-                        var role = new RoleModel(reader.GetString(1), reader.GetInt32(0));
-                        return role;
-                    }
+                    if (reader.Read()) return new RoleModel(reader.GetString(1), reader.GetInt32(0));
                     else throw new DataBaseNullSelectException(String.Format("В таблице Roles не существует записи с Id = {0}", id));
                 }
             }

@@ -42,10 +42,7 @@ namespace SAUEP.ApiServer.Repositories
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        var deviceGroup = new DeviceGroupModel(reader.GetString(1), reader.GetInt32(0));
-                        (deviceGroups as List<DeviceGroupModel>).Add(deviceGroup);
-                    }
+                        (deviceGroups as List<DeviceGroupModel>).Add(new DeviceGroupModel(reader.GetString(1), reader.GetInt32(0)));
                     return deviceGroups;
                 }
             }
@@ -58,11 +55,7 @@ namespace SAUEP.ApiServer.Repositories
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
-                    {
-                        var deviceGroup = new DeviceGroupModel(reader.GetString(1),reader.GetInt32(0));
-                        return deviceGroup;
-                    }
+                    if (reader.Read()) return new DeviceGroupModel(reader.GetString(1), reader.GetInt32(0));
                     else throw new DataBaseNullSelectException(String.Format("В таблице DeviceGroup не существует записи с Id = {0}", id));
                 }
             }

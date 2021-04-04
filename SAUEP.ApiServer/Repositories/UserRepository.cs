@@ -42,10 +42,7 @@ namespace SAUEP.ApiServer.Repositories
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        var user = new UserModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(0), reader.GetString(4));
-                        (users as List<UserModel>).Add(user);
-                    }
+                        (users as List<UserModel>).Add(new UserModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(0), reader.GetString(4)));
                     return users;
                 }
             }
@@ -58,11 +55,7 @@ namespace SAUEP.ApiServer.Repositories
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
-                    {
-                        var user = new UserModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(0), reader.GetString(4));
-                        return user;
-                    }
+                    if (reader.Read()) return new UserModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(0), reader.GetString(4));
                     else throw new DataBaseNullSelectException(String.Format("В таблице Users не существует записи с Id = {0}", id));
                 }
             }

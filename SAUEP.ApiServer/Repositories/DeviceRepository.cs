@@ -45,11 +45,8 @@ namespace SAUEP.ApiServer.Repositories
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        var device = new DeviceModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), 
-                            reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8), reader.GetInt32(0));
-                        (devices as List<DeviceModel>).Add(device);
-                    }
+                        (devices as List<DeviceModel>).Add(new DeviceModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                            reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8), reader.GetInt32(0)));
                     return devices;
                 }
             }
@@ -64,12 +61,8 @@ namespace SAUEP.ApiServer.Repositories
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
-                    {
-                        var device = new DeviceModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                    if (reader.Read()) return new DeviceModel(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5),
                             reader.GetBoolean(6), reader.GetDouble(7), reader.GetDouble(8), reader.GetInt32(0));
-                        return device;
-                    }
                     else throw new DataBaseNullSelectException(String.Format("В таблице Devices не существует записи с Id = {0}", id));
                 }
             }

@@ -8,7 +8,7 @@ using Npgsql;
 
 namespace SAUEP.ApiServer.Repositories
 {
-    public class PollRepository : IRepository
+    public sealed class PollRepository : IRepository
     {
         #region Constructors
 
@@ -45,11 +45,8 @@ namespace SAUEP.ApiServer.Repositories
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        var poll = new PollModel(reader.GetString(1), reader.GetString(2),
-                            reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5), reader.GetInt32(0));
-                        (polls as List<PollModel>).Add(poll);
-                    }
+                        (polls as List<PollModel>).Add(new PollModel(reader.GetString(1), reader.GetString(2),
+                            reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5), reader.GetInt32(0)));
                     return polls;
                 }
             }
@@ -65,11 +62,8 @@ namespace SAUEP.ApiServer.Repositories
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        var poll = new PollModel(reader.GetString(1), reader.GetString(2),
-                            reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5), reader.GetInt32(0));
-                        (polls as List<PollModel>).Add(poll);
-                    }
+                        (polls as List<PollModel>).Add(new PollModel(reader.GetString(1), reader.GetString(2),
+                            reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5), reader.GetInt32(0)));
                     return polls;
                 }
             }
@@ -83,12 +77,8 @@ namespace SAUEP.ApiServer.Repositories
             {
                 using (NpgsqlDataReader reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
-                    {
-                        var poll = new PollModel(reader.GetString(1), reader.GetString(2),
+                    if (reader.Read()) return new PollModel(reader.GetString(1), reader.GetString(2),
                             reader.GetDouble(3), reader.GetDouble(4), reader.GetDateTime(5), reader.GetInt32(0));
-                        return poll;
-                    }
                     else throw new DataBaseNullSelectException(String.Format("В таблице Polls не существует записи с Id = {0}", id));
                 }
             }
