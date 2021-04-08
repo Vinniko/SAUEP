@@ -4,7 +4,7 @@ using SAUEP.ApiServer.Repositories;
 
 namespace SAUEP.ApiServer.Services
 {
-    public class RegistrationService : IRegistration
+    public sealed class RegistrationService : IRegistration
     {
         #region Constructors
 
@@ -22,10 +22,8 @@ namespace SAUEP.ApiServer.Services
         public bool Registration(UserModel userModel)
         {
             foreach(var user in _userRepository.Get<UserModel>())
-            {
                 if(user.Login.Equals(userModel.Login))
                     return false;
-            }
             _userRepository.Set(userModel);
             return true;
         }
