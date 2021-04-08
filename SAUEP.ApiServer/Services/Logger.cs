@@ -6,6 +6,17 @@ namespace SAUEP.ApiServer.Services
 {
     public sealed class Logger : ILogger
     {
+        #region Constructors
+
+        public Logger()
+        {
+            _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
+            _lock = new object();
+        }
+
+        #endregion
+
+
 
         #region Main Logic
 
@@ -28,9 +39,9 @@ namespace SAUEP.ApiServer.Services
 
         #region Fields
 
-        private string _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
-        private string _loggFile = "\\log.txt";
-        private object _lock = new object();
+        private string _loggDirectory;
+        private const string _loggFile = "\\log.txt";
+        private object _lock;
 
         #endregion
     }
