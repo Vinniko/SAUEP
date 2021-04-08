@@ -21,7 +21,6 @@ namespace SAUEP.ApiServer.Services
         public Result Secure(Action action)
         {
             Result result = null;
-
             try
             {
                 action();
@@ -34,14 +33,12 @@ namespace SAUEP.ApiServer.Services
                 _logger.Logg(logText);
                 result = Result.Failed(exception);
             }
-
             return result;
         }
 
         public Result<T> Secure<T>(Func<T> func)
         {
             Result<T> result = null;
-
             try
             {
                 var value = func();
@@ -53,7 +50,6 @@ namespace SAUEP.ApiServer.Services
                 _logger.Logg(logText);
                 result = Result<T>.Failed(exception);
             }
-
             return result;
         }
 
