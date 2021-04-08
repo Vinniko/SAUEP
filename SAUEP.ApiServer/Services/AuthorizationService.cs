@@ -27,10 +27,8 @@ namespace SAUEP.ApiServer.Services
             var users = _userRepository.Get<UserModel>();
             UserModel user = null;
             for (var i = 0; i < users.Count; i++)
-            {
                 if ((users as List<UserModel>)[i].Login.Equals(username) && (users as List<UserModel>)[i].Password.Equals(password))
                     user = (users as List<UserModel>)[i];
-            }
             if (user != null)
             {
                 var claims = new List<Claim>
