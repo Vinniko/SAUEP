@@ -11,7 +11,6 @@ namespace SAUEP.DeviceClient.Configs
         public static IContainer ConfigureContainer()
         {
             var builder = new ContainerBuilder();
-
             builder.RegisterType<Guardian>().SingleInstance();
             builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
             builder.RegisterType<DataBaseConnection>().As<IConnection>().SingleInstance();
@@ -21,9 +20,7 @@ namespace SAUEP.DeviceClient.Configs
             builder.RegisterType<JSONParser>().As<IParser>().SingleInstance();
             builder.RegisterType<SocketWriter>().AsSelf().SingleInstance();
             builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
-            builder.RegisterType<ResultGenerator>().AsSelf().SingleInstance();
             builder.RegisterType<FileReader>().As<IReader>().SingleInstance();
-
             return builder.Build();
         }
     }
