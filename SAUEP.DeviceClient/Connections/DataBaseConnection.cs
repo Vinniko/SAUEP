@@ -10,9 +10,20 @@ namespace SAUEP.DeviceClient.Connections
 
         public DataBaseConnection(IReader reader, IParser jsonParser)
         {
-            _reader = reader;
             _parser = jsonParser;
-            var connection = _parser.Pars<ConnectionModel>(reader.Read(_connectionFile));
+            _reader = reader;
+            ConnectionEnable();
+        }
+
+        #endregion
+
+
+
+        #region Main Logic
+
+        private void ConnectionEnable()
+        {
+            var connection = _parser.Pars<ConnectionModel>(_reader.Read(_connectionFile));
             Connection = new NpgsqlConnection(string.Format(_connection, (connection as ConnectionModel).Host, (connection as ConnectionModel).Username, (connection as ConnectionModel).Password, (connection as ConnectionModel).Database));
             Connection.Open();
         }
@@ -31,13 +42,20 @@ namespace SAUEP.DeviceClient.Connections
 
 
 
+        #region Get/Set
+
+        public NpgsqlConnection Connection { get; set; }
+
+        #endregion
+
+
+
         #region Fields
 
         private const string _connection = "Host={0};Username={1};Password={2};Database={3}";
         private const string _connectionFile = @"Connections\Connection.json";
-        private IReader _reader;
         private IParser _parser;
-        public NpgsqlConnection Connection { get; set; }
+        private IReader _reader;
 
         #endregion
     }
