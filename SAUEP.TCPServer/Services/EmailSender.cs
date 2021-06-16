@@ -77,7 +77,7 @@ namespace SAUEP.TCPServer.Services
         private const string _minMessage = "Мощность устройства слишком мала!";
         private const string _maxMessage = "Мощность устройства слишком велика!";
         private const string _senderEmail = "sauep228@gmail.com";
-        private const string _senderPassword = "Vinniko333*";
+        private const string _senderPassword = "******";
         private const string _smtpServer = "smtp.gmail.com";
         private const int _smtpServerPort = 587;
 
