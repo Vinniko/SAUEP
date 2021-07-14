@@ -13,12 +13,16 @@ namespace SAUEP.DeviceClient
     {
         static void Main(string[] args)
         {
+            string configFile = @"Configs\Config.json";
             IContainer container = AutofacConfig.ConfigureContainer();
             Guardian guardian = container.Resolve<Guardian>();
             IWriter socketWriter = guardian.Secure(()=>container.Resolve<SocketWriter>()).Value;
             ResultGenerator generator = guardian.Secure(()=>container.Resolve<ResultGenerator>()).Value;
             guardian.Secure(() => generator.AddObserver(socketWriter as SocketWriter));
             IRepository deviceRepository = guardian.Secure(() => container.Resolve<IRepository>()).Value;
+            IReader fileReader = guardian.Secure(() => container.Resolve<IReader>()).Value;
+            IParser jsonParser = guardian.Secure(() => container.Resolve<IParser>()).Value;
+            IModel configModel = jsonParser.Pars<ConfigModel>(fileReader.Read(configFile));
             object locker = new object();
             while (true)
             {
@@ -30,7 +34,7 @@ namespace SAUEP.DeviceClient
                     {
                         lock (locker)
                         {
-                            IModel socket = guardian.Secure(() => new SocketModel()).Value;
+                            IModel socket = guardian.Secure(() => new SocketModel((configModel as ConfigModel).Ip, (configModel as ConfigModel).Port)).Value;
                             (socketWriter as SocketWriter).Socket = socket as SocketModel;
                             generator.Generate(device);
                         }

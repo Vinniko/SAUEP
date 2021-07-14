@@ -120,6 +120,7 @@
     <Compile Include="Interfaces\IReader.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IWriter.cs" />
+    <Compile Include="Models\ConfigModel.cs" />
     <Compile Include="Models\ConnectionModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\PollModel.cs" />
@@ -140,6 +141,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="Connections\Connection.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="packages.config" />
