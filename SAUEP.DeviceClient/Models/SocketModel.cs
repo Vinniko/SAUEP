@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using SAUEP.DeviceClient.Interfaces;
 
 namespace SAUEP.DeviceClient.Models
@@ -8,9 +7,9 @@ namespace SAUEP.DeviceClient.Models
     {
         #region Constructors
 
-        public SocketModel()
+        public SocketModel(string ipAddress, int sayPort)
         {
-            SaySocket = new TcpClient(_ipAddress, _sayPort);
+            SaySocket = new TcpClient(ipAddress, sayPort);
         }
 
         #endregion
@@ -31,8 +30,6 @@ namespace SAUEP.DeviceClient.Models
 
         #region Fields
 
-        private const int _sayPort = 8005;
-        private string _ipAddress = "127.0.0.1";
         public TcpClient SaySocket { get; private set; }
 
         #endregion
