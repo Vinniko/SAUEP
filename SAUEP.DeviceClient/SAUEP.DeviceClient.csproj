@@ -146,6 +146,7 @@
     <EmbeddedResource Include="Configs\Config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Configs\Config.json.example" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
