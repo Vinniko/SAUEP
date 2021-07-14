@@ -1,22 +1,22 @@
 # Electricity analysis and metering system
 ---------------------------------------------------------------------------------------------
-1. Установка
+1. РЈСЃС‚Р°РЅРѕРІРєР°
 ---------------------------------------------------------------------------------------------
-Склонировать репозиторий:
+РЎРєР»РѕРЅРёСЂРѕРІР°С‚СЊ СЂРµРїРѕР·РёС‚РѕСЂРёР№:
 >git clone https://github.com/Vinniko/SAUEP.git
 
-На сервере создать базу данных PostgreSQL, например:
+РќР° СЃРµСЂРІРµСЂРµ СЃРѕР·РґР°С‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… PostgreSQL, РЅР°РїСЂРёРјРµСЂ:
 >sudo -i -u postgres
 >psql
 >CREATE DATABASE MyDatabase
 >Ctrl+Z
 
-Теперь необходимо поднять схему данных:
+РўРµРїРµСЂСЊ РЅРµРѕР±С…РѕРґРёРјРѕ РїРѕРґРЅСЏС‚СЊ СЃС…РµРјСѓ РґР°РЅРЅС‹С…:
 >pgrestore -U postgres -d MyDatabase -1 ../SAUEPDump.sql
 
-Необходимо настроить подключение к базе данных в модeле ApiServer.
-Для этого необходимо перейти в ./SAUEP.ApiServer/Connections/Connection.json
-Пример заполнения: 
+РќРµРѕР±С…РѕРґРёРјРѕ РЅР°СЃС‚СЂРѕРёС‚СЊ РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С… РІ РјРѕРґeР»Рµ ApiServer.
+Р”Р»СЏ СЌС‚РѕРіРѕ РЅРµРѕР±С…РѕРґРёРјРѕ РїРµСЂРµР№С‚Рё РІ ./SAUEP.ApiServer/Connections/Connection.json
+РџСЂРёРјРµСЂ Р·Р°РїРѕР»РЅРµРЅРёСЏ: 
 >{
 >  "Host": "localhost",
 >  "Username": "postgres",
@@ -24,20 +24,20 @@
 >  "Database":  "MyDatabase"
 >}
 
-Для изменения хоста и порта под которым запускается ApiServer, перейдем в папку ./SAUEP.ApiServer/Properties/launchSettings.json
-и изменим поля: applicationUrl и sslPort.
+Р”Р»СЏ РёР·РјРµРЅРµРЅРёСЏ С…РѕСЃС‚Р° Рё РїРѕСЂС‚Р° РїРѕРґ РєРѕС‚РѕСЂС‹Рј Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ ApiServer, РїРµСЂРµР№РґРµРј РІ РїР°РїРєСѓ ./SAUEP.ApiServer/Properties/launchSettings.json
+Рё РёР·РјРµРЅРёРј РїРѕР»СЏ: applicationUrl Рё sslPort.
 
-Запуск ApiServer. 
-Перейдем в папку ./SAUEP.ApiServer/ и выполним команду 
+Р—Р°РїСѓСЃРє ApiServer. 
+РџРµСЂРµР№РґРµРј РІ РїР°РїРєСѓ ./SAUEP.ApiServer/ Рё РІС‹РїРѕР»РЅРёРј РєРѕРјР°РЅРґСѓ 
 >dotnet publish --configuration Release
 
-После выполнения перейдем в папку ./bin/Release/netcoreapp3.1 и выполним команду:
+РџРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ РїРµСЂРµР№РґРµРј РІ РїР°РїРєСѓ ./bin/Release/netcoreapp3.1 Рё РІС‹РїРѕР»РЅРёРј РєРѕРјР°РЅРґСѓ:
 >dotnet SAUEP.ApiServer.dll &
 
-Далее настроим TcpServer.
-Настроим подключение к базе по аналогии с ApiServer.
-Перейдем в ./SAUEP.TCPServer/Connections/Connection.json
-Пример заполнения: 
+Р”Р°Р»РµРµ РЅР°СЃС‚СЂРѕРёРј TcpServer.
+РќР°СЃС‚СЂРѕРёРј РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р±Р°Р·Рµ РїРѕ Р°РЅР°Р»РѕРіРёРё СЃ ApiServer.
+РџРµСЂРµР№РґРµРј РІ ./SAUEP.TCPServer/Connections/Connection.json
+РџСЂРёРјРµСЂ Р·Р°РїРѕР»РЅРµРЅРёСЏ: 
 >{
 >  "Host": "localhost",
 >  "Username": "postgres",
@@ -45,22 +45,22 @@
 >  "Database":  "MyDatabase"
 >}
 
-Чтобы поменять порты и хост под которыми запускается TcpServer, необходимо открыть файл./SAUEP.TCPServer/Models/SocketModel.cs 
-Пример настройки:
+Р§С‚РѕР±С‹ РїРѕРјРµРЅСЏС‚СЊ РїРѕСЂС‚С‹ Рё С…РѕСЃС‚ РїРѕРґ РєРѕС‚РѕСЂС‹РјРё Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ TcpServer, РЅРµРѕР±С…РѕРґРёРјРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»./SAUEP.TCPServer/Models/SocketModel.cs 
+РџСЂРёРјРµСЂ РЅР°СЃС‚СЂРѕР№РєРё:
 >private const int _listenPort = 8005;
 >private const int _sayPort = 8003;
 >private string _ipAddress = "127.0.0.1";
 
-Создадим релиз версию в папке ./SAUEP.TCPServer:
+РЎРѕР·РґР°РґРёРј СЂРµР»РёР· РІРµСЂСЃРёСЋ РІ РїР°РїРєРµ ./SAUEP.TCPServer:
 >dotnet publish --configuration Release
 
-И запустим сервер из папки ./SAUEP.TCPServer/bin/Release/ командой:
+Р Р·Р°РїСѓСЃС‚РёРј СЃРµСЂРІРµСЂ РёР· РїР°РїРєРё ./SAUEP.TCPServer/bin/Release/ РєРѕРјР°РЅРґРѕР№:
 >dotnet SAUEP.TCPServer.dll &
 
-Настроим тестовую версию DeviceClient:
-Настроим подключение к базе.
-Перейдем в ./SAUEP.DeviceClient/Connections/Connection.json
-Пример заполнения: 
+РќР°СЃС‚СЂРѕРёРј С‚РµСЃС‚РѕРІСѓСЋ РІРµСЂСЃРёСЋ DeviceClient:
+РќР°СЃС‚СЂРѕРёРј РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р±Р°Р·Рµ.
+РџРµСЂРµР№РґРµРј РІ ./SAUEP.DeviceClient/Connections/Connection.json
+РџСЂРёРјРµСЂ Р·Р°РїРѕР»РЅРµРЅРёСЏ: 
 >{
 >  "Host": "localhost",
 >  "Username": "postgres",
@@ -68,40 +68,40 @@
 >  "Database":  "MyDatabase"
 >}
 
-Чтобы поменять порты и хост под которыми запускается DeviceServer, необходимо открыть файл ./SAUEP.DeviceClient/Models/SocketModel.cs.
-_sayPort должен совпадать с _listentPort TcpServer.
-Пример настройки:
+Р§С‚РѕР±С‹ РїРѕРјРµРЅСЏС‚СЊ РїРѕСЂС‚С‹ Рё С…РѕСЃС‚ РїРѕРґ РєРѕС‚РѕСЂС‹РјРё Р·Р°РїСѓСЃРєР°РµС‚СЃСЏ DeviceServer, РЅРµРѕР±С…РѕРґРёРјРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» ./SAUEP.DeviceClient/Models/SocketModel.cs.
+_sayPort РґРѕР»Р¶РµРЅ СЃРѕРІРїР°РґР°С‚СЊ СЃ _listentPort TcpServer.
+РџСЂРёРјРµСЂ РЅР°СЃС‚СЂРѕР№РєРё:
 >private const int _sayPort = 8005;
 >private string _ipAddress = "127.0.0.1";
 
-Создадим релиз версию в папке ./SAUEP.DeviceClient:
+РЎРѕР·РґР°РґРёРј СЂРµР»РёР· РІРµСЂСЃРёСЋ РІ РїР°РїРєРµ ./SAUEP.DeviceClient:
 >dotnet publish --configuration Release
 
-И запустим клиент устройств из папки ./SAUEP.DeviceClient/bin/Release/ командой:
+Р Р·Р°РїСѓСЃС‚РёРј РєР»РёРµРЅС‚ СѓСЃС‚СЂРѕР№СЃС‚РІ РёР· РїР°РїРєРё ./SAUEP.DeviceClient/bin/Release/ РєРѕРјР°РЅРґРѕР№:
 >dotnet SAUEP.DeviceClient.dll &
 
-Запустить Desktop-клиент можно только под Windows. 
-Настроим подключение к ApiServer. 
-Откроем файл ./Core/Connections/Connection.json и изменим ConnectionUrl на хост под которым запущен ApiServer. 
-Например:
+Р—Р°РїСѓСЃС‚РёС‚СЊ Desktop-РєР»РёРµРЅС‚ РјРѕР¶РЅРѕ С‚РѕР»СЊРєРѕ РїРѕРґ Windows. 
+РќР°СЃС‚СЂРѕРёРј РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє ApiServer. 
+РћС‚РєСЂРѕРµРј С„Р°Р№Р» ./Core/Connections/Connection.json Рё РёР·РјРµРЅРёРј ConnectionUrl РЅР° С…РѕСЃС‚ РїРѕРґ РєРѕС‚РѕСЂС‹Рј Р·Р°РїСѓС‰РµРЅ ApiServer. 
+РќР°РїСЂРёРјРµСЂ:
 >{
 >  "ConnectionUrl": "http://localhost:53773/"
 >}
 
-В файле ./Core/Models/SocketModel.cs
-Настроим _listenPort и _ipAddress сервера:
+Р’ С„Р°Р№Р»Рµ ./Core/Models/SocketModel.cs
+РќР°СЃС‚СЂРѕРёРј _listenPort Рё _ipAddress СЃРµСЂРІРµСЂР°:
 >private const int _listenPort = 8003;
 >private string _ipAddress = "127.0.0.1";
 
-Можно запускать SAUEP.exe
+РњРѕР¶РЅРѕ Р·Р°РїСѓСЃРєР°С‚СЊ SAUEP.exe
 
 ---------------------------------------------------------------------------------------------
-2. Связь
+2. РЎРІСЏР·СЊ
 ---------------------------------------------------------------------------------------------
 
 <br> Email: vinnik_21@bk.ru / vinniko333@gmail.com
 <br> Telegram: https://t.me/vinnik0
-<br> LinkedIn: https://www.linkedin.com/in/алексей-винник-7450a5208/
+<br> LinkedIn: https://www.linkedin.com/in/Р°Р»РµРєСЃРµР№-РІРёРЅРЅРёРє-7450a5208/
 <br> HeadHunter: https://spb.hh.ru/resume/f658e91bff090474030039ed1f5a4141446844
 
 
