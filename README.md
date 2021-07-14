@@ -15,7 +15,10 @@
 >pgrestore -U postgres -d MyDatabase -1 ../SAUEPDump.sql
 
 Необходимо настроить подключение к базе данных в модeле ApiServer.
-Для этого необходимо перейти в ./SAUEP.ApiServer/Connections/Connection.json
+Для этого необходимо перейти в ./SAUEP.ApiServer/Connections
+И выполнить команду:
+>cp Connection.json.example Connection.json
+
 Пример заполнения: 
 >{
 >  "Host": "localhost",
@@ -59,7 +62,10 @@
 
 Настроим тестовую версию DeviceClient:
 Настроим подключение к базе.
-Перейдем в ./SAUEP.DeviceClient/Connections/Connection.json
+Перейдем в ./SAUEP.DeviceClient/Connections
+И выполним команду:
+>cp Connection.json.example Connection.json
+
 Пример заполнения: 
 >{
 >  "Host": "localhost",
@@ -68,11 +74,15 @@
 >  "Database":  "MyDatabase"
 >}
 
-Чтобы поменять порты и хост под которыми запускается DeviceServer, необходимо открыть файл ./SAUEP.DeviceClient/Models/SocketModel.cs.
-_sayPort должен совпадать с _listentPort TcpServer.
-Пример настройки:
->private const int _sayPort = 8005;
->private string _ipAddress = "127.0.0.1";
+Чтобы поменять порты и хост под которыми запускается DeviceServer, необходимо открыть ./SAUEP.DeviceClient/Configs
+И выполнить команду:
+>cp Config.json.example Config.json
+
+После необходимо настроить конфиг. Например:
+>{ 
+>   "Ip": "127.0.0.1", 
+>   "Port": 8005
+>}
 
 Создадим релиз версию в папке ./SAUEP.DeviceClient:
 >dotnet publish --configuration Release
