@@ -74,7 +74,7 @@
 >  "Database":  "MyDatabase"
 >}
 
-Чтобы поменять порты и хост под которыми запускается DeviceServer, необходимо открыть ./SAUEP.DeviceClient/Configs
+Чтобы поменять порт и хост под которыми запускается DeviceServer, необходимо открыть ./SAUEP.DeviceClient/Configs
 И выполнить команду:
 >cp Config.json.example Config.json
 
