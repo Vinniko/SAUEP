@@ -112,7 +112,7 @@
     <Compile Include="Connections\DataBaseConnection.cs" />
     <Compile Include="Exceptions\DataBaseNullSelectException.cs" />
     <Compile Include="Interfaces\IConnection.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\ILoger.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IObservable.cs" />
     <Compile Include="Interfaces\IObserver.cs" />
@@ -132,8 +132,8 @@
     <Compile Include="Services\ConsoleWriter.cs" />
     <Compile Include="Services\FileReader.cs" />
     <Compile Include="Services\Guardian.cs" />
-    <Compile Include="Services\JSONParser.cs" />
-    <Compile Include="Services\Logger.cs" />
+    <Compile Include="Services\JsonParser.cs" />
+    <Compile Include="Services\Loger.cs" />
     <Compile Include="Services\Result.cs" />
     <Compile Include="Services\ResultGenerator.cs" />
     <Compile Include="Services\SocketWriter.cs" />
@@ -147,6 +147,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Configs\Config.json.example" />
+    <None Include="Connections\Connection.json.example" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
