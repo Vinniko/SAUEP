@@ -20,7 +20,6 @@ namespace SAUEP.DeviceClient.Services
 
 
 
-
         #region Main Logic
 
         public void Generate(object device)
