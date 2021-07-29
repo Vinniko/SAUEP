@@ -4,7 +4,7 @@ using SAUEP.DeviceClient.Interfaces;
 
 namespace SAUEP.DeviceClient.Services
 {
-    public sealed class JSONParser : IParser
+    public sealed class JsonParser : IParser
     {
         #region Main Logic
 
