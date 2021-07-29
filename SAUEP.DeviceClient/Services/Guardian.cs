@@ -7,7 +7,7 @@ namespace SAUEP.DeviceClient.Services
     {
         #region Constructors
 
-        public Guardian(ILogger logger)
+        public Guardian(ILoger logger)
         {
             _logger = logger;
         }
@@ -31,7 +31,7 @@ namespace SAUEP.DeviceClient.Services
             catch (Exception exception)
             {
                 string logText = exception.Message;
-                _logger.Logg(logText);
+                _logger.Log(logText);
                 result = Result.Failed(exception);
             }
 
@@ -50,7 +50,7 @@ namespace SAUEP.DeviceClient.Services
             catch (Exception exception)
             {
                 string logText = exception.Message;
-                _logger.Logg(logText);
+                _logger.Log(logText);
                 result = Result<T>.Failed(exception);
             }
 
@@ -63,7 +63,7 @@ namespace SAUEP.DeviceClient.Services
 
         #region Fields
 
-        private ILogger _logger;
+        private ILoger _logger;
 
         #endregion
     }

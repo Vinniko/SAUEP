@@ -8,7 +8,7 @@ namespace SAUEP.DeviceClient.Services
     {
         #region Constructors
 
-        public SocketWriter(IParser parser, IWriter writer, ILogger logger)
+        public SocketWriter(IParser parser, IWriter writer, ILoger logger)
         {
             _parser = parser;
             _consoleWriter = writer;
@@ -34,7 +34,7 @@ namespace SAUEP.DeviceClient.Services
                             writer.Write(_parser.Depars<PollModel>(data as PollModel));
                             writer.Flush();
                             _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
-                            _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
+                            _logger.Log("Отправлено на сервер: " + (data as PollModel).Serial);
                         }
                     }
                 }
@@ -42,7 +42,7 @@ namespace SAUEP.DeviceClient.Services
             else
             {
                 _consoleWriter.Write("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
-                _logger.Logg("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
+                _logger.Log("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
             }
         }
 
@@ -60,7 +60,7 @@ namespace SAUEP.DeviceClient.Services
         public SocketModel Socket { get; set; }
         private IParser _parser;
         private IWriter _consoleWriter;
-        private ILogger _logger;
+        private ILoger _logger;
 
         #endregion
     }
