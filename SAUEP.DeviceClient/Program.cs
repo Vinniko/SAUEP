@@ -46,7 +46,7 @@ namespace SAUEP.DeviceClient
                 {
                     thread.Join();
                 }
-                Thread.Sleep(3000);
+                Thread.Sleep(30000);
             }
         }
     }
