@@ -34,7 +34,7 @@ namespace SAUEP.DeviceClient.Services
                             writer.Write(_parser.Depars<PollModel>(data as PollModel));
                             writer.Flush();
                             _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
-                            _logger.Log("Отправлено на сервер: " + (data as PollModel).Serial);
+                            _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
                         }
                     }
                 }
@@ -42,7 +42,7 @@ namespace SAUEP.DeviceClient.Services
             else
             {
                 _consoleWriter.Write("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
-                _logger.Log("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
+                _logger.Logg("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
             }
         }
 

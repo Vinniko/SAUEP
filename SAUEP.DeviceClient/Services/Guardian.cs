@@ -31,7 +31,7 @@ namespace SAUEP.DeviceClient.Services
             catch (Exception exception)
             {
                 string logText = exception.Message;
-                _logger.Log(logText);
+                _logger.Logg(logText);
                 result = Result.Failed(exception);
             }
 
@@ -50,7 +50,7 @@ namespace SAUEP.DeviceClient.Services
             catch (Exception exception)
             {
                 string logText = exception.Message;
-                _logger.Log(logText);
+                _logger.Logg(logText);
                 result = Result<T>.Failed(exception);
             }
 

@@ -9,11 +9,11 @@ namespace SAUEP.DeviceClient.Services
 
         #region Main Logic
 
-        public void Log(string text)
+        public void Logg(string text)
         {
-            if (!Directory.Exists(_logDirectory))
-                Directory.CreateDirectory(_logDirectory);
-            using (var streamWriter = File.AppendText(_logDirectory + _logFile))
+            if (!Directory.Exists(_loggDirectory))
+                Directory.CreateDirectory(_loggDirectory);
+            using (var streamWriter = File.AppendText(_loggDirectory + _loggFile))
             {
                 streamWriter.WriteLine(text + " : " + DateTime.Now.ToString());
             }
@@ -23,11 +23,10 @@ namespace SAUEP.DeviceClient.Services
 
 
 
-
         #region Fields
 
-        private string _logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
-        private string _logFile = "\\log.txt";
+        private string _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
+        private string _loggFile = "\\log.txt";
 
         #endregion
     }
