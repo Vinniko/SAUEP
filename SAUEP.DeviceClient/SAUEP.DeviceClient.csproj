@@ -111,6 +111,7 @@
     <Compile Include="Configs\AutofacConfig.cs" />
     <Compile Include="Connections\DataBaseConnection.cs" />
     <Compile Include="Exceptions\DataBaseNullSelectException.cs" />
+    <Compile Include="Exceptions\TcpSocketIsClosedException.cs" />
     <Compile Include="Interfaces\IConnection.cs" />
     <Compile Include="Interfaces\ILoger.cs" />
     <Compile Include="Interfaces\IModel.cs" />
