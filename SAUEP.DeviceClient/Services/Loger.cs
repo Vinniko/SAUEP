@@ -12,7 +12,10 @@ namespace SAUEP.DeviceClient.Services
         public void Logg(string text)
         {
             if (!Directory.Exists(_loggDirectory))
+            {
                 Directory.CreateDirectory(_loggDirectory);
+            }
+
             using (var streamWriter = File.AppendText(_loggDirectory + _loggFile))
             {
                 streamWriter.WriteLine(text + " : " + DateTime.Now.ToString());
@@ -26,7 +29,7 @@ namespace SAUEP.DeviceClient.Services
         #region Fields
 
         private string _loggDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Log");
-        private string _loggFile = "\\log.txt";
+        private const string _loggFile = "\\log.txt";
 
         #endregion
     }
