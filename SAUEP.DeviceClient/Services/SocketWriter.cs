@@ -1,5 +1,7 @@
-﻿using SAUEP.DeviceClient.Interfaces;
+﻿using SAUEP.DeviceClient.Exceptions;
+using SAUEP.DeviceClient.Interfaces;
 using SAUEP.DeviceClient.Models;
+using System;
 using System.IO;
 
 namespace SAUEP.DeviceClient.Services
@@ -23,32 +25,62 @@ namespace SAUEP.DeviceClient.Services
 
         public void Write<T>(T data)
         {
-            if (Socket.SaySocket != null)
+            try
             {
-                using (var client = Socket.SaySocket)
+                if (tcpSocketCreated() && Socket.SaySocket.Connected)
                 {
-                    using (var stream = client.GetStream())
+                    using (var client = Socket.SaySocket)
                     {
-                        using (var writer = new BinaryWriter(stream))
+                        using (var stream = client.GetStream())
                         {
-                            writer.Write(_parser.Depars<PollModel>(data as PollModel));
-                            writer.Flush();
-                            _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
-                            _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
+                            using (var writer = new BinaryWriter(stream))
+                            {
+                                writer.Write(_parser.Depars(data as PollModel));
+                                writer.Flush();
+                                _consoleWriter.Write("Отправлено на сервер: " + (data as PollModel).Serial);
+                                _logger.Logg("Отправлено на сервер: " + (data as PollModel).Serial);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    throw new TcpSocketIsClosedException();
+                }
             }
-            else
+            catch (TcpSocketIsClosedException ex)
             {
                 _consoleWriter.Write("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
                 _logger.Logg("Нет доступа к серверу. Данные не отправлены." + (data as PollModel).Serial);
+                Socket.Reconnection();
+
+                //TODO Кеширование данных
             }
+
+            
+               
+            
         }
 
         public void Update(PollModel pollModel)
         {
             Write(pollModel);
+        }
+
+        #endregion
+
+
+
+        #region Staff
+
+        private bool tcpSocketCreated()
+        {
+            if (Socket.SaySocket == null)
+            {
+                throw new TcpSocketIsClosedException();
+            }
+
+            return true;
         }
 
         #endregion

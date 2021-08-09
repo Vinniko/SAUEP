@@ -9,7 +9,35 @@ namespace SAUEP.DeviceClient.Models
 
         public SocketModel(string ipAddress, int sayPort)
         {
-            SaySocket = new TcpClient(ipAddress, sayPort);
+            _sayHost = ipAddress;
+            _sayPort = sayPort;
+
+            try
+            {
+                SaySocket = new TcpClient(ipAddress, sayPort);
+            }
+            catch(SocketException e)
+            {
+                SaySocket = null;
+            }
+        }
+
+        #endregion
+
+
+
+        #region Main Logic
+
+        public void Reconnection()
+        {
+            try
+            {
+                SaySocket = new TcpClient(_sayHost, _sayPort);
+            }
+            catch (SocketException e)
+            {
+                SaySocket = null;
+            }
         }
 
         #endregion
@@ -31,6 +59,8 @@ namespace SAUEP.DeviceClient.Models
         #region Fields
 
         public TcpClient SaySocket { get; private set; }
+        private string _sayHost;
+        private int _sayPort;
 
         #endregion
     }
