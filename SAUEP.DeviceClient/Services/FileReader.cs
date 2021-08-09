@@ -9,10 +9,12 @@ namespace SAUEP.DeviceClient.Services
         public string Read(string path)
         {
             string text = string.Empty;
+
             using(StreamReader stream = File.OpenText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path)))
             {
                 text = stream.ReadToEnd();
             }
+
             return text;
         }
     }
