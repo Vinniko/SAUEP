@@ -9,7 +9,6 @@
 >sudo -i -u postgres
 >psql
 >CREATE DATABASE MyDatabase
->Ctrl+Z
 
 Теперь необходимо поднять схему данных:
 >pgrestore -U postgres -d MyDatabase -1 ../SAUEPDump.sql
